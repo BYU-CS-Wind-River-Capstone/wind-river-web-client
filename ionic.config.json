@@ -1,0 +1,7 @@
+{
+  "name": "Wind River Web Client",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
