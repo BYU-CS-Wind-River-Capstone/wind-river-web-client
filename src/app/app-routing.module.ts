@@ -11,6 +11,10 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
+  {
+    path: 'survey-builder',
+    loadChildren: () => import('./survey-builder/survey-builder.module').then( m => m.SurveyBuilderPageModule)
+  },
 ];
 
 @NgModule({
