@@ -11,8 +11,38 @@
     </ion-toolbar>
   </ion-header>
 
-  <div id="question-bank">
-      <ion-card>
+  <div id="survey-builder-page">
+
+      <ion-card id="question-types">
+        <ion-card>
+          <ion-button (click)="addQuestion()" fill="outline">
+            Add Question
+          </ion-button>
+        </ion-card>
+      </ion-card>
+
+    <div id="question-bank">
+
+      <ion-card *ngFor="let question of questions" class="question-card">
+        <ion-card-header>
+          <ion-card-title>Example Card</ion-card-title>
+          <ion-card-subtitle>Example Subtitle</ion-card-subtitle>
+        </ion-card-header>
+
+        <ion-item>
+          <ion-icon name="pin" slot="start"></ion-icon>
+          <ion-label *ngIf="!question.isEditing">ion-item in a card, icon left, button right</ion-label>
+          <ion-input *ngIf="question.isEditing" placeholder="Enter Input"></ion-input>
+          <ion-button (click)="toggleEdit(question)" fill="outline" slot="end" >Edit</ion-button>
+          <ion-button (click)="removeQuestion(question)" fill="outline" slot="end" color="danger">Delete</ion-button>
+        </ion-item>
+      
+        <ion-card-content>
+          Question number {{question.index}}.
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card class="question-card">
         <ion-card-header>
           <ion-card-title>Card Title</ion-card-title>
           <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
@@ -24,20 +54,7 @@
         </ion-card-content>
       </ion-card>
 
-      <ion-card>
-        <ion-item>
-          <ion-icon name="pin" slot="start"></ion-icon>
-          <ion-label>ion-item in a card, icon left, button right</ion-label>
-          <ion-button fill="outline" slot="end">View</ion-button>
-        </ion-item>
-      
-        <ion-card-content>
-          This is content, without any paragraph or header tags,
-          within an ion-card-content element.
-        </ion-card-content>
-      </ion-card>
-      
-      <ion-card>
+      <ion-card class="question-card">
         <ion-item href="#" class="ion-activated">
           <ion-icon name="wifi" slot="start"></ion-icon>
           <ion-label>Card Link Item 1 activated</ion-label>
@@ -59,5 +76,7 @@
           <ion-label>Card Button Item 2</ion-label>
         </ion-item>
       </ion-card>
+
+    </div>
   </div>
 </ion-content>

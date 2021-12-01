@@ -1,0 +1,22 @@
+#question-types {
+    width: 25%;
+    height: 85vh;
+    position: fixed;
+    top: 9%;
+    left: 0;
+    bottom: 0;
+}
+
+#question-bank {
+    width: 100%;
+}
+
+.question-card {
+    width: 72%;
+    float: right;
+}
+
+#survey-builder-page {
+    justify-content: space-between;
+    flex-direction: row;
+}
