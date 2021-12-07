@@ -7,6 +7,16 @@
     bottom: 0;
 }
 
+.toolbar-button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.toolbar-button {
+    width: 45%;
+}
+
 #question-bank {
     width: 100%;
 }
@@ -21,7 +31,7 @@
     flex-direction: row;
 }
 
-#save-button-container {
+.save-button-container {
     position: fixed;
     bottom: 0px;
     right: 0px;
@@ -31,4 +41,9 @@
     margin: 20px;
     height: 100px;
     width: 100px;
+}
+
+.save-icon {
+    height: 50%;
+    width: 50%;
 }
