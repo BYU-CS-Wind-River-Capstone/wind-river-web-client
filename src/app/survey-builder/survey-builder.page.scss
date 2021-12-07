@@ -7,6 +7,16 @@
     bottom: 0;
 }
 
+.toolbar-button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.toolbar-button {
+    width: 45%;
+}
+
 #question-bank {
     width: 100%;
 }

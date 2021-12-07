@@ -14,9 +14,12 @@
   <div id="survey-builder-page">
 
       <ion-card id="question-types">
-        <ion-card>
-          <ion-button (click)="addQuestion()" fill="outline">
-            Add Question
+        <ion-card class="toolbar-button-container">
+          <ion-button class="toolbar-button" color="primary" (click)="addQuestion()">
+            ADD
+          </ion-button>
+          <ion-button class="toolbar-button" color="danger">
+            REMOVE
           </ion-button>
         </ion-card>
       </ion-card>
