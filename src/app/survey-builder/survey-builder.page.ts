@@ -10,14 +10,13 @@ export class SurveyBuilderPage {
   questions = new Array();
   numQuestions = 0;
   questionType;
+  titleValue = 'Question Title';
+  inputValue = 'Question Value';
+  answerValue = 'Answer Value';
   place;
   constructor() { }
 
   toggleEdit(question) {
-    // const index = this.questions.indexOf(question.index);
-    // if (this.questions.length > 0) {
-    //   this.questions[index].isEditing = !this.questions[index].isEditing;
-    // }
     question.isEditing = !question.isEditing;
   }
 
@@ -37,6 +36,10 @@ export class SurveyBuilderPage {
     } else {
       this.questions.pop();
     }
+  }
+
+  saveResponse(question) {
+    this.toggleEdit(question);
   }
 
   public questionOptions(): void {

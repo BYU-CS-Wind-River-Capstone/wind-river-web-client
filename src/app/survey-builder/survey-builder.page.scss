@@ -1,16 +1,22 @@
+#survey-builder-page {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
 #question-types {
-    width: 25%;
+    width: 20%;
+    max-width: 400px;
     height: 85vh;
-    position: fixed;
-    top: 9%;
-    left: 0;
-    bottom: 0;
+    margin: 25px;
+    padding-top: 10px;
 }
 
 .toolbar-button-container {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    padding-bottom: 10px;
 }
 
 .toolbar-button {
@@ -18,18 +24,26 @@
 }
 
 #question-bank {
+    display: flex;
+    flex-direction: column;
     width: 100%;
 }
 
 .question-card {
-    width: 72%;
+    width: auto;
     float: right;
 }
 
-#survey-builder-page {
-    justify-content: space-between;
-    flex-direction: row;
-}
+ion-select {
+    /* Applies to the value and placeholder color */
+    color: #f4f5f8;
+  
+    /* Set a different placeholder color */
+    --placeholder-color: #f4f5f8;
+  
+    /* Set full opacity on the placeholder */
+    --placeholder-opacity: 1;
+  }
 
 .save-button-container {
     position: fixed;
@@ -46,4 +60,22 @@
 .save-icon {
     height: 50%;
     width: 50%;
+}
+
+@media (max-width: 1000px) {
+    .toolbar-button-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .toolbar-button {
+        width: 90%;
+    }
+    .save-button {
+        margin: 15px;
+        height: 75px;
+        width: 75px;
+    }
 }
