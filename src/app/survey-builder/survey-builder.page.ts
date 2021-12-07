@@ -26,7 +26,6 @@ export class SurveyBuilderPage {
           isEditing: false
         }
       );
-    ++this.numQuestions;
   }
 
   removeQuestion(question) {
