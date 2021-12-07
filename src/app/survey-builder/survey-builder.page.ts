@@ -9,6 +9,8 @@ export class SurveyBuilderPage {
 
   questions = new Array();
   numQuestions = 0;
+  questionType;
+  place;
   constructor() { }
 
   toggleEdit(question) {
@@ -37,4 +39,10 @@ export class SurveyBuilderPage {
     }
   }
 
+  public questionOptions(): void {
+    console.log(this.place);
+    const item = this.place;
+    this.questionType = item.value;
+    console.log(this.questionType);
+  }
 }

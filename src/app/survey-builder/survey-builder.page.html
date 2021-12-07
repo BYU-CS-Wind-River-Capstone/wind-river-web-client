@@ -29,14 +29,21 @@
           <ion-card-subtitle>Example Subtitle</ion-card-subtitle>
         </ion-card-header>
 
+        <ion-select [(ngModel)]="place" (ionChange)="questionOptions()" okText="Okay" cancelText="Dismiss">
+          <ion-select-option value="radio">Multiple Choice</ion-select-option>
+          <ion-select-option value="slider">Value Slider</ion-select-option>
+          <ion-select-option value="boolean">Yes or No</ion-select-option>
+          <ion-select-option value="checkmark">Select All That Apply</ion-select-option>
+        </ion-select>
+
         <ion-item>
           <ion-icon name="pin" slot="start"></ion-icon>
-          <ion-label *ngIf="!question.isEditing">ion-item in a card, icon left, button right</ion-label>
+          <ion-label *ngIf="!question.isEditing">Enter question here</ion-label>
           <ion-input *ngIf="question.isEditing" placeholder="Enter Input"></ion-input>
           <ion-button (click)="toggleEdit(question)" fill="outline" slot="end" >Edit</ion-button>
           <ion-button (click)="removeQuestion(question)" fill="outline" slot="end" color="danger">Delete</ion-button>
         </ion-item>
-      
+
         <ion-card-content>
           Question number {{question.index}}.
         </ion-card-content>
@@ -47,7 +54,7 @@
           <ion-card-title>Card Title</ion-card-title>
           <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
         </ion-card-header>
-      
+
         <ion-card-content>
           Keep close to Nature's heart... and break clear away, once in awhile,
           and climb a mountain or spend a week in the woods. Wash your spirit clean.
@@ -59,18 +66,18 @@
           <ion-icon name="wifi" slot="start"></ion-icon>
           <ion-label>Card Link Item 1 activated</ion-label>
         </ion-item>
-      
+
         <!-- TODO: ADD MODAL ON CLICK FOR QUESTIONS -->
         <ion-item href="#">
           <ion-icon name="wine" slot="start"></ion-icon>
           <ion-label>Card Link Item 2</ion-label>
         </ion-item>
-      
+
         <ion-item class="ion-activated">
           <ion-icon name="warning" slot="start"></ion-icon>
           <ion-label>Card Button Item 1 activated</ion-label>
         </ion-item>
-      
+
         <ion-item>
           <ion-icon name="walk" slot="start"></ion-icon>
           <ion-label>Card Button Item 2</ion-label>
