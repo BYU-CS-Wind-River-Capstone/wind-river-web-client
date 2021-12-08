@@ -1,40 +1,41 @@
 import { Component, OnInit } from '@angular/core';
 
+import { SurveyBuilderApi } from './survey-builder.api';
+
 @Component({
   selector: 'app-survey-builder',
   templateUrl: './survey-builder.page.html',
   styleUrls: ['./survey-builder.page.scss'],
 })
 export class SurveyBuilderPage {
-
-  questions = new Array();
-  numQuestions = 0;
-  questionType;
-  titleValue = 'Question Title';
-  inputValue = 'Question Value';
-  answerValue = 'Answer Value';
-  place;
-  constructor() { }
+  survey = {
+    title: 'testTitle',
+    description: 'test description',
+    dueDate: 'tomorrow',
+    questions: [],
+  };
+  constructor(private api: SurveyBuilderApi) { }
 
   toggleEdit(question) {
     question.isEditing = !question.isEditing;
   }
 
   addQuestion() {
-    this.questions.push(
+    this.survey.questions.push(
         {
-          index: this.numQuestions,
+          textHtml: '',
+          type: '',
           isEditing: false
         }
       );
   }
 
   removeQuestion(question) {
-    const index = this.questions.indexOf(question.index);
+    const index = this.survey.questions.indexOf(question.index);
     if (index > -1) {
-      this.questions.splice(index, 1);
+      this.survey.questions.splice(index, 1);
     } else {
-      this.questions.pop();
+      this.survey.questions.pop();
     }
   }
 
@@ -42,10 +43,31 @@ export class SurveyBuilderPage {
     this.toggleEdit(question);
   }
 
-  public questionOptions(): void {
-    console.log(this.place);
-    const item = this.place;
-    this.questionType = item.value;
-    console.log(this.questionType);
+  onTypeChange(value, question) {
+    switch(value) {
+      case 'BOOLEAN':
+        break;
+      case 'CHECK':
+        question.options = [{label: '', value: ''}, {label: '', value: ''}, {label: '', value: ''}, {label: '', value: ''}];
+        break;
+      case 'SLIDER':
+        question.startLabel = 'START';
+        question.endLabel = 'END';
+        question.min = 1;
+        question.max = 6;
+        question.step = 1;
+        break;
+      case 'RADIO':
+        question.options = [{label: '', value: ''}, {label: '', value: ''}, {label: '', value: ''}, {label: '', value: ''}];
+        break;
+      default:
+        break;
+    }
+  }
+
+  saveSurvey() {
+    // TODO: format questions to remove excess fields
+    console.log('Saving survey');
+    this.api.createSurvey(this.survey).subscribe();
   }
 }

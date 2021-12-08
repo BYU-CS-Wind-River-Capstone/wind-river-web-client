@@ -1,20 +1,21 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
+import { HttpClientModule } from '@angular/common/http';
 import { IonicModule } from '@ionic/angular';
-
-import { SurveyBuilderPageRoutingModule } from './survey-builder-routing.module';
-
+import { NgModule } from '@angular/core';
+import { SurveyBuilderApi } from './survey-builder.api';
 import { SurveyBuilderPage } from './survey-builder.page';
+import { SurveyBuilderPageRoutingModule } from './survey-builder-routing.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    SurveyBuilderPageRoutingModule
+    SurveyBuilderPageRoutingModule,
+    HttpClientModule
   ],
-  declarations: [SurveyBuilderPage]
+  declarations: [SurveyBuilderPage],
+  providers: [SurveyBuilderApi]
 })
 export class SurveyBuilderPageModule {}
