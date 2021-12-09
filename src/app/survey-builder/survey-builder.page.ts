@@ -85,15 +85,6 @@ export class SurveyBuilderPage {
     }
   }
 
-  // onStepSelect() {
-  //   var element = document.getElementById(id);
-  //   console.log(id);
-  //   question.min = 1;
-  //   question.max = element;
-  //   console.log(question.min);
-  //   console.log(question.max);
-  // }
-
   saveSurvey() {
     // TODO: format questions to remove excess fields
     console.log('Saving survey');
