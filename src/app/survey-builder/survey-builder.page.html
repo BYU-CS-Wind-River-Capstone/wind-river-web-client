@@ -33,7 +33,7 @@
       </ion-card>
       <ion-card *ngFor="let question of survey.questions" class="question-card">
         <ion-item>
-          <ion-icon name="pin" slot="start"></ion-icon>
+          <h2 slot="start">Question {{survey.questions.indexOf(question) + 1}}</h2>
           <ion-card-title text-wrap *ngIf="!question.isEditing">{{ question.textHtml }}</ion-card-title>
           <ion-input *ngIf="question.isEditing" [(ngModel)]="question.textHtml" placeholder="Question Text"></ion-input>
 
@@ -62,7 +62,20 @@
             </ion-segment>
   
             <div class="slider-container" *ngSwitchCase="'SLIDER'">
-              <ion-input [disabled]="!question.isEditing" placeholder="Start Label" [(ngModel)]="question.startLabel"></ion-input>
+              <div *ngIf="question.isEditing" class="slider-options-container">
+                <h3>Steps</h3>
+                <select [(ngModel)]="question.max" class="slider-options" id="slider-steps">
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6" selected>6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
+              </div>
               <ion-range
                 [min]="question.min || 1"
                 [max]="question.max || 6"
@@ -72,23 +85,32 @@
                 class="slider"
               >
               </ion-range>
-              <ion-input [disabled]="!question.isEditing" placeholder="End Label" [(ngModel)]="question.endLabel"></ion-input>
+              <div class="slider-label-container">
+                <ion-input class="slider-label" [disabled]="!question.isEditing" placeholder="Start Label" [(ngModel)]="question.startLabel" ></ion-input>
+                <ion-input class="slider-label" [disabled]="!question.isEditing" placeholder="End Label" [(ngModel)]="question.endLabel" style="text-align: right;"></ion-input>
+              </div>
             </div>
   
             <ion-list *ngSwitchCase="'RADIO'">
               <ion-radio-group>
                 <ion-item *ngFor="let option of question.options">
-                  <ion-label>{{option.label}}</ion-label>
-                  <ion-radio [value]="option.value"></ion-radio>
+                  <ion-radio [value]="option.value" slot="start"></ion-radio>
+                  <ion-input [(ngModel)]="option.label" *ngIf="question.isEditing"></ion-input>
+                  <ion-label *ngIf="!question.isEditing">{{option.label}}</ion-label>
+                  <ion-button *ngIf="question.isEditing" (click)="removeOption(question, option)" slot="end" color="danger">Remove</ion-button>
                 </ion-item>
               </ion-radio-group>
+              <ion-button *ngIf="question.isEditing" (click)="addOption(question)" slot="end" >Add Option</ion-button>
             </ion-list>
   
             <ion-list *ngSwitchCase="'CHECK'">
               <ion-item *ngFor="let option of question.options">
-                <ion-label>{{option.label}}</ion-label>
-                <ion-checkbox></ion-checkbox>
+                <ion-checkbox [value]="option.value" slot="start"></ion-checkbox>
+                <ion-input [(ngModel)]="option.label" *ngIf="question.isEditing"></ion-input>
+                <ion-label *ngIf="!question.isEditing">{{option.label}}</ion-label>
+                <ion-button *ngIf="question.isEditing" (click)="removeOption(question, option)" slot="end" color="danger">Remove</ion-button>
               </ion-item>
+              <ion-button *ngIf="question.isEditing" (click)="addOption(question)" slot="end" >Add Option</ion-button>
             </ion-list>
           </ng-container>
         </ion-card-content>

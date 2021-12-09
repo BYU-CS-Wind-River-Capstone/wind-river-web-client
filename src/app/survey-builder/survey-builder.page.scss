@@ -62,6 +62,30 @@ ion-select {
     width: 50%;
 }
 
+.slider-label-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.slider-label {
+    width: 50%;
+}
+
+.slider-options {
+    border-color: gray;
+    border-radius: 5px;
+    color: #ffffff;
+    width: 32%;
+    height: 30px;
+    margin-left: 30px;
+}
+
+.slider-options-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+}
+
 @media (max-width: 1000px) {
     .toolbar-button-container {
         display: flex;
