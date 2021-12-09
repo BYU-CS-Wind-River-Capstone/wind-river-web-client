@@ -15,20 +15,20 @@
 
       <ion-card id="question-types" slot="fixed">
         <ion-card class="toolbar-button-container">
-          <ion-button class="toolbar-button" color="primary" (click)="addQuestion()">
-            ADD
-          </ion-button>
-          <ion-button class="toolbar-button" color="danger">
-            REMOVE
+          <ion-button color="primary" (click)="addQuestion()">
+            ADD QUESTION
           </ion-button>
         </ion-card>
+        TODO show list of questions and allow reordering here
       </ion-card>
 
     <div id="question-bank">
       <ion-card class="question-card">
         <ion-card-header>
-          <ion-card-title>Survey Title</ion-card-title>
-          <ion-card-subtitle>Survey Description</ion-card-subtitle>
+          <!-- TODO make the title and description editable -->
+          <ion-card-title>{{survey.title}}</ion-card-title>
+          <ion-card-subtitle>{{survey.description}}</ion-card-subtitle>
+          <!-- TODO add an editable due date or recurring due schedule -->
         </ion-card-header>
       </ion-card>
       <ion-card *ngFor="let question of survey.questions" class="question-card">
@@ -60,7 +60,7 @@
                 <ion-label>yes</ion-label>
               </ion-segment-button>
             </ion-segment>
-  
+
             <div class="slider-container" *ngSwitchCase="'SLIDER'">
               <div *ngIf="question.isEditing" class="slider-options-container">
                 <h3>Steps</h3>
@@ -81,8 +81,9 @@
                 <ion-input class="slider-label" [disabled]="!question.isEditing" placeholder="End Label" [(ngModel)]="question.endLabel" style="text-align: right;"></ion-input>
               </div>
             </div>
-  
+
             <ion-list *ngSwitchCase="'RADIO'">
+              <!-- TODO add a way to edit the value of each option -->
               <ion-radio-group>
                 <ion-item *ngFor="let option of question.options">
                   <ion-radio [value]="option.value" slot="start"></ion-radio>
@@ -93,8 +94,9 @@
               </ion-radio-group>
               <ion-button *ngIf="question.isEditing" (click)="addOption(question)" slot="end" >Add Option</ion-button>
             </ion-list>
-  
+
             <ion-list *ngSwitchCase="'CHECK'">
+              <!-- TODO add a way to edit the value of each option -->
               <ion-item *ngFor="let option of question.options">
                 <ion-checkbox [value]="option.value" slot="start"></ion-checkbox>
                 <ion-input [(ngModel)]="option.label" *ngIf="question.isEditing"></ion-input>

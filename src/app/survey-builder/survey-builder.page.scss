@@ -19,14 +19,11 @@
     padding-bottom: 10px;
 }
 
-.toolbar-button {
-    width: 45%;
-}
-
 #question-bank {
     display: flex;
     flex-direction: column;
     width: 100%;
+    padding-bottom: 110px; // to leave room for the hugeungeous fab button
 }
 
 .question-card {
@@ -37,22 +34,21 @@
 ion-select {
     /* Applies to the value and placeholder color */
     color: #f4f5f8;
-  
+
     /* Set a different placeholder color */
     --placeholder-color: #f4f5f8;
-  
+
     /* Set full opacity on the placeholder */
     --placeholder-opacity: 1;
   }
 
 .save-button-container {
     position: fixed;
-    bottom: 0px;
-    right: 0px;
+    bottom: 20px;
+    right: 20px;
 }
 
 .save-button {
-    margin: 20px;
     height: 100px;
     width: 100px;
 }

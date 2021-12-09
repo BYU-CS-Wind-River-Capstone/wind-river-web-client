@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { SurveyBuilderApi } from './survey-builder.api';
+import { add } from 'date-fns';
 
 @Component({
   selector: 'app-survey-builder',
@@ -9,9 +10,9 @@ import { SurveyBuilderApi } from './survey-builder.api';
 })
 export class SurveyBuilderPage {
   survey = {
-    title: 'testTitle',
-    description: 'test description',
-    dueDate: 'tomorrow',
+    title: 'Survey Title',
+    description: 'Survey description',
+    dueDate: add(new Date(), { days: 1}),
     questions: [],
   };
 
@@ -26,7 +27,7 @@ export class SurveyBuilderPage {
         {
           textHtml: '',
           type: '',
-          isEditing: false,
+          isEditing: true,
           options: []
         }
       );
@@ -45,7 +46,7 @@ export class SurveyBuilderPage {
     question.options.push({
       label: '',
       value: ''
-    })
+    });
   }
 
   removeOption(question, option) {
@@ -86,8 +87,26 @@ export class SurveyBuilderPage {
   }
 
   saveSurvey() {
-    // TODO: format questions to remove excess fields
-    console.log('Saving survey');
+    const formattedSurvey = {...this.survey};
+    formattedSurvey.questions.forEach(question => {
+      delete question.isEditing;
+      switch(question.type) {
+        case 'SLIDER':
+          delete question.options;
+        break;
+        case 'BOOLEAN':
+          delete question.options;
+        // eslint-disable-next-line no-fallthrough
+        case 'CHECK':
+        case 'RADIO':
+          delete question.startLabel;
+          delete question.endLabel;
+          delete question.min;
+          delete question.max;
+          delete question.step;
+          break;
+      }
+    });
     this.api.createSurvey(this.survey).subscribe();
   }
 }
