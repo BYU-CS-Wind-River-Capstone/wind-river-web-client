@@ -16,6 +16,10 @@ const routes: Routes = [
     path: 'survey-builder',
     loadChildren: () => import('./survey-builder/survey-builder.module').then( m => m.SurveyBuilderPageModule)
   },
+  {
+    path: 'data-management',
+    loadChildren () => import('./data-management/data-management.module').then(m => )
+  }
 ];
 
 @NgModule({
