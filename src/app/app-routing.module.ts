@@ -9,12 +9,16 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'survey-builder',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   {
     path: 'survey-builder',
     loadChildren: () => import('./survey-builder/survey-builder.module').then( m => m.SurveyBuilderPageModule)
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
   },
 ];
 
