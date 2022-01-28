@@ -4,10 +4,6 @@ import { NgModule } from '@angular/core';
 
 const routes: Routes = [
   {
-    path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
-  },
-  {
     path: '',
     redirectTo: 'survey-builder',
     pathMatch: 'full'
@@ -18,7 +14,7 @@ const routes: Routes = [
   },
   {
     path: 'data-management',
-    loadChildren () => import('./data-management/data-management.module').then(m => )
+    loadChildren: () => import('./data-management/data-management.module').then(m => m.DataManagementPageModule)
   }
 ];
 
