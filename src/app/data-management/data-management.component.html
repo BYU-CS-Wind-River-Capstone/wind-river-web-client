@@ -1,0 +1,32 @@
+<ion-toolbar>
+  <ion-title>Data Management</ion-title>
+</ion-toolbar>
+
+<ion-content [fullscreen]="true">
+    <ion-toolbar>
+      <ion-title size="large">Data Management</ion-title>
+    </ion-toolbar>
+
+  <div id="data-management-component">
+    <ion-card *ngFor="let surveyInfo of surveyInfoList">
+      <ion-card-title>{{surveyInfo.title}}</ion-card-title>
+      <ion-grid>
+        <ion-row>
+          <ion-col>{{surveyInfo.description}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col *ngIf="surveyInfo.active">Active</ion-col>
+          <ion-col *ngIf="!surveyInfo.active">Inactive</ion-col>
+          <ion-col>
+            <ion-row>
+              <ion-col>Response Count</ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>{{surveyInfo.responseCount}}</ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card>
+  </div>
+</ion-content>
