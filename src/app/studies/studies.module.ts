@@ -1,0 +1,22 @@
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { IonicModule } from '@ionic/angular';
+import { NgModule } from '@angular/core';
+import { StudiesRoutingModule } from './studies-routing.module';
+import { StudiesApi } from './services/studies.api';
+import { SurveyBuilderPage } from './pages/survey-builder/survey-builder.page';
+import { SurveyListPage } from './pages/survey-list/survey-list.page';
+
+@NgModule({
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonicModule,
+    StudiesRoutingModule,
+    HttpClientModule
+  ],
+  declarations: [SurveyBuilderPage, SurveyListPage ],
+  providers: [StudiesApi]
+})
+export class StudiesModule {}

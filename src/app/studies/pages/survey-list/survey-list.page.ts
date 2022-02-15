@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 
-import {DataManagementApi} from './data-management.api';
+import { StudiesApi } from '../../services/studies.api';
 
 class SurveyInfo {
   title: string;
@@ -16,12 +16,13 @@ class SurveyInfo {
 }
 
 @Component({
-  selector: 'app-data-management',
-  templateUrl: './data-management.component.html',
-  styleUrls: ['./data-management.component.scss']
+  selector: 'app-survey-list',
+  templateUrl: './survey-list.page.html',
+  styleUrls: ['./survey-list.page.scss']
 })
-export class  DataManagementComponent {
+export class  SurveyListPage {
 
+  // TODO grab the list of surveys from the server using the api
   surveyInfoList = [
     new SurveyInfo('Depression Survey', 'Survey for incidence of deppresion', true, 20),
     new SurveyInfo('Addiction Survey', 'Survey to measure rates of addiction', true, 15),
@@ -29,5 +30,5 @@ export class  DataManagementComponent {
     new SurveyInfo('Alcoholism Survey', 'Survey to measure rates of alcoholism', false, 20)
   ];
 
-  constructor(private api: DataManagementApi) {}
+  constructor(private api: StudiesApi) {}
 }
