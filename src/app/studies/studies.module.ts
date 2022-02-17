@@ -7,6 +7,7 @@ import { StudiesRoutingModule } from './studies-routing.module';
 import { StudiesApi } from './services/studies.api';
 import { SurveyBuilderPage } from './pages/survey-builder/survey-builder.page';
 import { SurveyListPage } from './pages/survey-list/survey-list.page';
+import { StudiesStore } from './services/studies.store';
 
 @NgModule({
   imports: [
@@ -17,6 +18,6 @@ import { SurveyListPage } from './pages/survey-list/survey-list.page';
     HttpClientModule
   ],
   declarations: [SurveyBuilderPage, SurveyListPage ],
-  providers: [StudiesApi]
+  providers: [StudiesApi, StudiesStore]
 })
 export class StudiesModule {}

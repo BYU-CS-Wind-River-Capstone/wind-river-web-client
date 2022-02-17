@@ -8,13 +8,22 @@
     </ion-toolbar>
 
   <div id="data-management-component">
-    <ion-card *ngFor="let surveyInfo of surveyInfoList">
-      <ion-card-title>{{surveyInfo.title}}</ion-card-title>
+    <ion-card *ngFor="let surveyInfo of store.surveyList">
+      <ion-card-title>
+        {{surveyInfo.title}}
+        <div class="action-buttons">
+          <!-- TODO hook up these buttons -->
+          <ion-button><ion-icon name="pencil-outline"></ion-icon></ion-button>
+          <ion-button (click)="store.downloadSurveyResponses(surveyInfo.id)"><ion-icon name="download-outline"></ion-icon></ion-button>
+          <ion-button><ion-icon name="eye-outline"></ion-icon></ion-button>
+        </div>
+      </ion-card-title>
       <ion-grid>
         <ion-row>
           <ion-col>{{surveyInfo.description}}</ion-col>
         </ion-row>
-        <ion-row>
+        <!-- TODO decide what other information we want to display. We will then need to or create a new endpoint to fetch it -->
+        <!-- <ion-row>
           <ion-col *ngIf="surveyInfo.active">Active</ion-col>
           <ion-col *ngIf="!surveyInfo.active">Inactive</ion-col>
           <ion-col>
@@ -25,7 +34,7 @@
               <ion-col>{{surveyInfo.responseCount}}</ion-col>
             </ion-row>
           </ion-col>
-        </ion-row>
+        </ion-row> -->
       </ion-grid>
     </ion-card>
   </div>

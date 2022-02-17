@@ -19,4 +19,8 @@ export class StudiesApi {
     return this.http.get<any[]>(`${apiURL}/survey/${surveyId}`);
   }
 
+  getSurveyResponsesById(surveyId: string) {
+    return this.http.get<any[]>(`${apiURL}/survey/response/survey/${surveyId}`);
+  }
+
 }
