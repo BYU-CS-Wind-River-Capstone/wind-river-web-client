@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { SurveyBuilderApi } from './survey-builder.api';
+import { StudiesApi } from '../../services/studies.api';
 import { add } from 'date-fns';
 
 @Component({
@@ -16,7 +16,7 @@ export class SurveyBuilderPage {
     questions: [],
   };
 
-  constructor(private api: SurveyBuilderApi) {  }
+  constructor(private api: StudiesApi) {  }
 
   toggleEdit(question) {
     question.isEditing = !question.isEditing;
