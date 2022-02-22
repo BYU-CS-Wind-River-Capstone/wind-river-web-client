@@ -81,6 +81,9 @@ export class SurveyBuilderPage {
       case 'RADIO':
         question.options = [{label: '', value: ''}];
         break;
+      case 'TEXT':
+        question.placeholder = 'Enter response here...';
+        break;
       default:
         break;
     }
@@ -93,12 +96,22 @@ export class SurveyBuilderPage {
       switch(question.type) {
         case 'SLIDER':
           delete question.options;
-        break;
-        case 'BOOLEAN':
+          delete question.placeholder;
+          break;
+          case 'BOOLEAN':
+            delete question.options;
+            // eslint-disable-next-line no-fallthrough
+            case 'CHECK':
+            case 'RADIO':
+              delete question.startLabel;
+              delete question.endLabel;
+              delete question.min;
+              delete question.max;
+              delete question.step;
+              delete question.placeholder;
+          break;
+        case 'TEXT':
           delete question.options;
-        // eslint-disable-next-line no-fallthrough
-        case 'CHECK':
-        case 'RADIO':
           delete question.startLabel;
           delete question.endLabel;
           delete question.min;
