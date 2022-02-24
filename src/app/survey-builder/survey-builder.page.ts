@@ -10,6 +10,8 @@ import { add } from 'date-fns';
 })
 export class SurveyBuilderPage {
   survey = {
+    id: new Date().toString(),
+    adminId: '12345',
     title: 'Survey Title',
     description: 'Survey description',
     dueDate: add(new Date(), { days: 1}),

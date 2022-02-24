@@ -7,6 +7,7 @@ export const environment = {
 };
 
 export const apiURL = 'http://localhost:3000';
+export const prodURL = 'https://vnjso0apea.execute-api.us-west-2.amazonaws.com';
 
 /*
  * For easier debugging in development mode, you can import the following file
