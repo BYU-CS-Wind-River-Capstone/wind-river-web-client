@@ -38,6 +38,7 @@
             <ion-select-option value="SLIDER">Value Slider</ion-select-option>
             <ion-select-option value="BOOLEAN">Yes or No</ion-select-option>
             <ion-select-option value="CHECK">Select All That Apply</ion-select-option>
+            <ion-select-option value="TEXT">Free Response</ion-select-option>
           </ion-select>
 
             <ion-button *ngIf="!question.isEditing" (click)="toggleEdit(question)" slot="end" >Edit</ion-button>
@@ -101,6 +102,14 @@
               </ion-item>
               <ion-button *ngIf="question.isEditing" (click)="addOption(question)" slot="end" >Add Option</ion-button>
             </ion-list>
+
+            <div *ngSwitchCase="'TEXT'" >
+              <ion-item>
+                <ion-label>Placeholder text:</ion-label>
+                <ion-input [(ngModel)]="question.placeholder" placeholder="enter placeholder here..."></ion-input>
+              </ion-item>
+              <ion-textarea [placeholder]="question.placeholder"></ion-textarea>
+            </div>
           </ng-container>
         </ion-card-content>
       </ion-card>
