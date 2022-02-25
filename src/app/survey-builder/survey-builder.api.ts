@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { apiURL, prodURL } from 'src/environments/environment';
+import { apiURL, prodURL, testURL } from 'src/environments/environment';
 
 @Injectable()
 export class SurveyBuilderApi {
@@ -12,13 +12,11 @@ header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');*/
 
   createSurvey(survey: any) {
     const options = {
-      headers: new HttpHeaders()
-      .set('content-type', 'application/json')
-      .set('Access-Control-Allow-Origin', '*')
-      //.set('Access-Control-Allow-Methods', 'POST')
-      //.set('Access-Control-Allow-Headers', 'Origin, Content-Type, X-Auth-Token')
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      })
     };
-    return this.http.post<any[]>(`${prodURL}/survey/new`, survey, options);
+    return this.http.post<any[]>(`${testURL}/survey/new`, survey, options);
   }
 
 }

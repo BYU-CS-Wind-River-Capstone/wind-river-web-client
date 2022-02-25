@@ -8,7 +8,7 @@ export const environment = {
 
 export const apiURL = 'http://localhost:3000';
 export const prodURL = 'https://vnjso0apea.execute-api.us-west-2.amazonaws.com';
-
+export const testURL = 'https://l9w43tacl3.execute-api.us-west-2.amazonaws.com/test';
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.

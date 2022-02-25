@@ -16,6 +16,7 @@ export class SurveyBuilderPage {
     description: 'Survey description',
     dueDate: add(new Date(), { days: 1}),
     questions: [],
+    cumulative: false
   };
 
   constructor(private api: SurveyBuilderApi) {  }
