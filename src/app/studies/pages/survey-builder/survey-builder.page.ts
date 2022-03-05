@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { StudiesApi } from '../../services/studies.api';
 import { add } from 'date-fns';
+import { Survey, QuestionTypes, Question } from '../../../types/survey.types';
 
 @Component({
   selector: 'app-survey-builder',
@@ -9,7 +10,8 @@ import { add } from 'date-fns';
   styleUrls: ['./survey-builder.page.scss'],
 })
 export class SurveyBuilderPage {
-  survey = {
+  questionTypes = QuestionTypes;
+  survey: Survey = {
     title: 'Survey Title',
     description: 'Survey description',
     dueDate: add(new Date(), { days: 1}),
@@ -18,7 +20,7 @@ export class SurveyBuilderPage {
 
   constructor(private api: StudiesApi) {  }
 
-  toggleEdit(question) {
+  toggleEdit(question: Question) {
     question.isEditing = !question.isEditing;
   }
 
@@ -26,14 +28,14 @@ export class SurveyBuilderPage {
     this.survey.questions.push(
         {
           textHtml: '',
-          type: '',
+          type: QuestionTypes.bool,
           isEditing: true,
           options: []
         }
       );
   }
 
-  removeQuestion(question) {
+  removeQuestion(question: Question) {
     const index = this.survey.questions.indexOf(question);
     if (index > -1) {
       this.survey.questions.splice(index, 1);
@@ -42,32 +44,32 @@ export class SurveyBuilderPage {
     }
   }
 
-  addOption(question) {
+  addOption(question: Question) {
     question.options.push({
       label: '',
       value: ''
     });
   }
 
-  removeOption(question, option) {
+  removeOption(question: Question, option) {
     const index = question.options.indexOf(option);
     if (index > -1) {
       question.options.splice(index, 1);
     }
   }
 
-  saveResponse(question) {
+  saveResponse(question: Question) {
     this.toggleEdit(question);
   }
 
-  onTypeChange(value, question) {
+  onTypeChange(value: QuestionTypes, question: Question) {
     switch(value) {
-      case 'BOOLEAN':
+      case QuestionTypes.bool:
         break;
-      case 'CHECK':
+      case QuestionTypes.check:
         question.options = [{label: '', value: ''}];
         break;
-      case 'SLIDER':
+      case QuestionTypes.slider:
         question.startLabel = 'START';
         question.endLabel = 'END';
         question.min = 1;
@@ -78,10 +80,10 @@ export class SurveyBuilderPage {
         //question.minNumbers = Array(question.max - question.min).fill(null).map((x,i)=>i + 1);
         //question.maxNumbers = Array(11 - question.min).fill(null).map((x,i)=>i + 1 + question.min);
         break;
-      case 'RADIO':
+      case QuestionTypes.radio:
         question.options = [{label: '', value: ''}];
         break;
-      case 'TEXT':
+      case QuestionTypes.text:
         question.placeholder = 'Enter response here...';
         break;
       default:
@@ -91,18 +93,18 @@ export class SurveyBuilderPage {
 
   saveSurvey() {
     const formattedSurvey = {...this.survey};
-    formattedSurvey.questions.forEach(question => {
+    formattedSurvey.questions.forEach((question: Question) => {
       delete question.isEditing;
       switch(question.type) {
-        case 'SLIDER':
+        case QuestionTypes.slider:
           delete question.options;
           delete question.placeholder;
           break;
-          case 'BOOLEAN':
+          case QuestionTypes.bool:
             delete question.options;
             // eslint-disable-next-line no-fallthrough
-            case 'CHECK':
-            case 'RADIO':
+            case QuestionTypes.check:
+            case QuestionTypes.radio:
               delete question.startLabel;
               delete question.endLabel;
               delete question.min;
@@ -110,7 +112,7 @@ export class SurveyBuilderPage {
               delete question.step;
               delete question.placeholder;
           break;
-        case 'TEXT':
+        case QuestionTypes.text:
           delete question.options;
           delete question.startLabel;
           delete question.endLabel;
