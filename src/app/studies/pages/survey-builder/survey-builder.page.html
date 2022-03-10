@@ -34,11 +34,11 @@
           <ion-input *ngIf="question.isEditing" [(ngModel)]="question.textHtml" placeholder="Question Text"></ion-input>
 
           <ion-select (ngModelChange)="onTypeChange($event, question)" *ngIf="question.isEditing" [(ngModel)]="question.type" okText="Okay" cancelText="Dismiss" placeholder="Question Type">
-            <ion-select-option value="RADIO">Multiple Choice</ion-select-option>
-            <ion-select-option value="SLIDER">Value Slider</ion-select-option>
-            <ion-select-option value="BOOLEAN">Yes or No</ion-select-option>
-            <ion-select-option value="CHECK">Select All That Apply</ion-select-option>
-            <ion-select-option value="TEXT">Free Response</ion-select-option>
+            <ion-select-option [value]="questionTypes.radio">Multiple Choice</ion-select-option>
+            <ion-select-option [value]="questionTypes.slider">Value Slider</ion-select-option>
+            <ion-select-option [value]="questionTypes.bool">Yes or No</ion-select-option>
+            <ion-select-option [value]="questionTypes.check">Select All That Apply</ion-select-option>
+            <ion-select-option [value]="questionTypes.text">Free Response</ion-select-option>
           </ion-select>
 
             <ion-button *ngIf="!question.isEditing" (click)="toggleEdit(question)" slot="end" >Edit</ion-button>
@@ -49,7 +49,7 @@
         <ion-card-content>
           <ng-container [ngSwitch]="question.type">
 
-            <ion-segment *ngSwitchCase="'BOOLEAN'">
+            <ion-segment *ngSwitchCase="questionTypes.bool">
               <ion-segment-button [value]="false">
                 <ion-label>No</ion-label>
               </ion-segment-button>
@@ -58,7 +58,7 @@
               </ion-segment-button>
             </ion-segment>
 
-            <div class="slider-container" *ngSwitchCase="'SLIDER'">
+            <div class="slider-container" *ngSwitchCase="questionTypes.slider">
               <div *ngIf="question.isEditing" class="slider-options-container">
                 <h3>Steps</h3>
                 <ion-input [(ngModel)]="question.max" class="slider-options" id="slider-steps">
@@ -79,7 +79,7 @@
               </div>
             </div>
 
-            <ion-list *ngSwitchCase="'RADIO'">
+            <ion-list *ngSwitchCase="questionTypes.radio">
               <!-- TODO add a way to edit the value of each option -->
               <ion-radio-group>
                 <ion-item *ngFor="let option of question.options">
@@ -92,7 +92,7 @@
               <ion-button *ngIf="question.isEditing" (click)="addOption(question)" slot="end" >Add Option</ion-button>
             </ion-list>
 
-            <ion-list *ngSwitchCase="'CHECK'">
+            <ion-list *ngSwitchCase="questionTypes.check">
               <!-- TODO add a way to edit the value of each option -->
               <ion-item *ngFor="let option of question.options">
                 <ion-checkbox [value]="option.value" slot="start"></ion-checkbox>
@@ -103,7 +103,7 @@
               <ion-button *ngIf="question.isEditing" (click)="addOption(question)" slot="end" >Add Option</ion-button>
             </ion-list>
 
-            <div *ngSwitchCase="'TEXT'" >
+            <div *ngSwitchCase="questionTypes.text" >
               <ion-item>
                 <ion-label>Placeholder text:</ion-label>
                 <ion-input [(ngModel)]="question.placeholder" placeholder="enter placeholder here..."></ion-input>
