@@ -5,8 +5,12 @@
                 <ion-card-title> Provider Registration Portal </ion-card-title>
             </ion-card-header>
             <ion-card-content>
-                <ion-input placeholder="email" type="email"></ion-input>
-                <ion-input placeholder="password" type="password"></ion-input>
+                <ion-input [(ngModel)]="userEmail" placeholder="email" type="email"></ion-input>
+                <ion-input
+                    [(ngModel)]="userPassword"
+                    placeholder="password"
+                    type="password"
+                ></ion-input>
                 <div class="button-container">
                     <ion-button
                         class="register-button"
@@ -16,11 +20,7 @@
                     >
                         submit
                     </ion-button>
-                    <ion-button
-                        class="register-button"
-                        [routerLink]="['/login']"
-                        disabled="false"
-                    >
+                    <ion-button class="register-button" [routerLink]="['/login']" disabled="false">
                         return to login
                     </ion-button>
                 </div>
