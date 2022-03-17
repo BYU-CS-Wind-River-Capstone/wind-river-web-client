@@ -15,4 +15,9 @@ export class RegisterPage implements OnInit {
   userEmail = "";
   userPassword = "";
 
+  printVars() {
+      console.log(this.userEmail);
+      console.log(this.userPassword);
+  }
+
 }
