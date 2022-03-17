@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Question, QuestionTypes, Survey } from '../../../types/survey.types';
 
 import { StudiesApi } from '../../services/studies.api';
 import { add } from 'date-fns';
-import { Survey, QuestionTypes, Question } from '../../../types/survey.types';
 
 @Component({
   selector: 'app-survey-builder',
@@ -22,6 +22,21 @@ export class SurveyBuilderPage {
 
   toggleEdit(question: Question) {
     question.isEditing = !question.isEditing;
+  }
+
+  moveQuestionUp(question: Question) {
+    const index = this.survey.questions.indexOf(question);
+    if (index > 0) {
+        [this.survey.questions[index], this.survey.questions[index - 1]] = [this.survey.questions[index - 1], this.survey.questions[index]]
+    }
+  }
+
+  moveQuestionDown(question: Question) {
+      const index = this.survey.questions.indexOf(question);
+      if (index < this.survey.questions.length - 1) {
+          [this.survey.questions[index], this.survey.questions[index + 1]] = [this.survey.questions[index + 1], this.survey.questions[index]]
+      }
+      
   }
 
   addQuestion() {
