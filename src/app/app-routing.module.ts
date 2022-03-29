@@ -9,10 +9,6 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'register',
-    loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
-  },
-  {
     path: 'studies',
     loadChildren: () => import('./studies/studies.module').then( m => m.StudiesModule)
   },
@@ -24,10 +20,6 @@ const routes: Routes = [
     path: '**',
     redirectTo: '',
     pathMatch: 'full',
-  },
-  {
-    path: 'register',
-    loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
   },
 ];
 
