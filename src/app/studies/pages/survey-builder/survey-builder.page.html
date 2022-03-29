@@ -1,124 +1,248 @@
-<ion-toolbar>
-  <ion-title>Survey Builder</ion-title>
-</ion-toolbar>
-
-<ion-content [fullscreen]="true">
+<body class="light">
     <ion-toolbar>
-      <ion-title size="large">Survey Builder</ion-title>
+        <ion-title>Survey Builder</ion-title>
     </ion-toolbar>
 
-  <div id="survey-builder-page">
+    <ion-content [fullscreen]="true">
+        <ion-toolbar>
+            <ion-title size="large">Survey Builder</ion-title>
+        </ion-toolbar>
 
-      <ion-card id="question-types" slot="fixed">
-        <ion-card class="toolbar-button-container">
-          <ion-button color="primary" (click)="addQuestion()">
-            ADD QUESTION
-          </ion-button>
-        </ion-card>
-        TODO show list of questions and allow reordering here
-      </ion-card>
+        <div id="survey-builder-page">
+            <div id="survey-builder-container">
+                <div id="question-bank">
+                    <ion-card class="question-card">
+                        <ion-card-header>
+                            <!-- TODO make the title and description editable -->
+                            <ion-card-title>{{survey.title}}</ion-card-title>
+                            <ion-card-subtitle>{{survey.description}}</ion-card-subtitle>
+                            <!-- TODO add an editable due date or recurring due schedule -->
+                        </ion-card-header>
+                    </ion-card>
+                    <ion-card *ngFor="let question of survey.questions" class="question-card">
+                        <ion-item>
+                            <h2 slot="start">
+                                Question {{survey.questions.indexOf(question) + 1}}
+                            </h2>
+                            <ion-card-title text-wrap *ngIf="!question.isEditing"
+                                >{{ question.textHtml }}</ion-card-title
+                            >
+                            <ion-input
+                                *ngIf="question.isEditing"
+                                [(ngModel)]="question.textHtml"
+                                placeholder="Question Text"
+                            ></ion-input>
 
-    <div id="question-bank">
-      <ion-card class="question-card">
-        <ion-card-header>
-          <!-- TODO make the title and description editable -->
-          <ion-card-title>{{survey.title}}</ion-card-title>
-          <ion-card-subtitle>{{survey.description}}</ion-card-subtitle>
-          <!-- TODO add an editable due date or recurring due schedule -->
-        </ion-card-header>
-      </ion-card>
-      <ion-card *ngFor="let question of survey.questions" class="question-card">
-        <ion-item>
-          <h2 slot="start">Question {{survey.questions.indexOf(question) + 1}}</h2>
-          <ion-card-title text-wrap *ngIf="!question.isEditing">{{ question.textHtml }}</ion-card-title>
-          <ion-input *ngIf="question.isEditing" [(ngModel)]="question.textHtml" placeholder="Question Text"></ion-input>
+                            <ion-select
+                                (ngModelChange)="onTypeChange($event, question)"
+                                *ngIf="question.isEditing"
+                                [(ngModel)]="question.type"
+                                okText="Apply"
+                                cancelText="Cancel"
+                                placeholder="Question Type"
+                                class="question-type-dropdown"
+                                slot="end"
+                            >
+                                <ion-select-option [value]="questionTypes.radio"
+                                    >Multiple Choice</ion-select-option
+                                >
+                                <ion-select-option [value]="questionTypes.slider"
+                                    >Value Slider</ion-select-option
+                                >
+                                <ion-select-option [value]="questionTypes.bool"
+                                    >Yes or No</ion-select-option
+                                >
+                                <ion-select-option [value]="questionTypes.check"
+                                    >Select All That Apply</ion-select-option
+                                >
+                                <ion-select-option [value]="questionTypes.text"
+                                    >Free Response</ion-select-option
+                                >
+                            </ion-select>
 
-          <ion-select (ngModelChange)="onTypeChange($event, question)" *ngIf="question.isEditing" [(ngModel)]="question.type" okText="Okay" cancelText="Dismiss" placeholder="Question Type">
-            <ion-select-option [value]="questionTypes.radio">Multiple Choice</ion-select-option>
-            <ion-select-option [value]="questionTypes.slider">Value Slider</ion-select-option>
-            <ion-select-option [value]="questionTypes.bool">Yes or No</ion-select-option>
-            <ion-select-option [value]="questionTypes.check">Select All That Apply</ion-select-option>
-            <ion-select-option [value]="questionTypes.text">Free Response</ion-select-option>
-          </ion-select>
+                            <div class="position-buttons" slot="end">
+                                <ion-button
+                                    *ngIf="question.isEditing"
+                                    (click)="moveQuestionUp(question)"
+                                    color="success"
+                                    ><ion-icon name="arrow-up-outline"></ion-icon>
+                                </ion-button>
 
-            <ion-button *ngIf="!question.isEditing" (click)="toggleEdit(question)" slot="end" >Edit</ion-button>
-            <ion-button *ngIf="question.isEditing" (click)="saveResponse(question)" slot="end" >Save</ion-button>
-            <ion-button (click)="removeQuestion(question)" slot="end" color="danger">Delete</ion-button>
-        </ion-item>
+                                <ion-button
+                                    *ngIf="question.isEditing"
+                                    color="success"
+                                    (click)="moveQuestionDown(question)"
+                                >
+                                    <ion-icon name="arrow-down-outline"></ion-icon>
+                                </ion-button>
+                            </div>
 
-        <ion-card-content>
-          <ng-container [ngSwitch]="question.type">
+                            <ion-button
+                                *ngIf="!question.isEditing"
+                                (click)="toggleEdit(question)"
+                                slot="end"
+                                >Edit</ion-button
+                            >
+                            <ion-button
+                                *ngIf="question.isEditing"
+                                (click)="saveResponse(question)"
+                                slot="end"
+                                >Save</ion-button
+                            >
+                            <ion-button (click)="removeQuestion(question)" slot="end" color="danger"
+                                >Delete</ion-button
+                            >
+                        </ion-item>
 
-            <ion-segment *ngSwitchCase="questionTypes.bool">
-              <ion-segment-button [value]="false">
-                <ion-label>No</ion-label>
-              </ion-segment-button>
-              <ion-segment-button [value]="true">
-                <ion-label>yes</ion-label>
-              </ion-segment-button>
-            </ion-segment>
+                        <ion-card-content>
+                            <ng-container [ngSwitch]="question.type">
+                                <ion-segment *ngSwitchCase="questionTypes.bool">
+                                    <ion-segment-button [value]="false">
+                                        <ion-label>No</ion-label>
+                                    </ion-segment-button>
+                                    <ion-segment-button [value]="true">
+                                        <ion-label>yes</ion-label>
+                                    </ion-segment-button>
+                                </ion-segment>
 
-            <div class="slider-container" *ngSwitchCase="questionTypes.slider">
-              <div *ngIf="question.isEditing" class="slider-options-container">
-                <h3>Steps</h3>
-                <ion-input [(ngModel)]="question.max" class="slider-options" id="slider-steps">
-                </ion-input>
-              </div>
-              <ion-range
-                [min]="question.min || 1"
-                [max]="question.max || 6"
-                [step]="question.step || 1"
-                snaps
-                pin
-                class="slider"
-              >
-              </ion-range>
-              <div class="slider-label-container">
-                <ion-input class="slider-label" [disabled]="!question.isEditing" placeholder="Start Label" [(ngModel)]="question.startLabel" ></ion-input>
-                <ion-input class="slider-label" [disabled]="!question.isEditing" placeholder="End Label" [(ngModel)]="question.endLabel" style="text-align: right;"></ion-input>
-              </div>
+                                <div class="slider-container" *ngSwitchCase="questionTypes.slider">
+                                    <div
+                                        *ngIf="question.isEditing"
+                                        class="slider-options-container"
+                                    >
+                                        <h3>Steps</h3>
+                                        <ion-input
+                                            [(ngModel)]="question.max"
+                                            class="slider-options"
+                                            id="slider-steps"
+                                        >
+                                        </ion-input>
+                                    </div>
+                                    <ion-range
+                                        [min]="question.min || 1"
+                                        [max]="question.max || 6"
+                                        [step]="question.step || 1"
+                                        snaps
+                                        pin
+                                        class="slider"
+                                    >
+                                    </ion-range>
+                                    <div class="slider-label-container">
+                                        <ion-input
+                                            class="slider-label"
+                                            [disabled]="!question.isEditing"
+                                            placeholder="Start Label"
+                                            [(ngModel)]="question.startLabel"
+                                        ></ion-input>
+                                        <ion-input
+                                            class="slider-label"
+                                            [disabled]="!question.isEditing"
+                                            placeholder="End Label"
+                                            [(ngModel)]="question.endLabel"
+                                            style="text-align: right"
+                                        ></ion-input>
+                                    </div>
+                                </div>
+
+                                <ion-list *ngSwitchCase="questionTypes.radio">
+                                    <!-- TODO add a way to edit the value of each option -->
+                                    <ion-radio-group>
+                                        <ion-item *ngFor="let option of question.options">
+                                            <ion-radio
+                                                [value]="option.value"
+                                                slot="start"
+                                            ></ion-radio>
+                                            <ion-input
+                                                [(ngModel)]="option.label"
+                                                *ngIf="question.isEditing"
+                                            ></ion-input>
+                                            <ion-label *ngIf="!question.isEditing"
+                                                >{{option.label}}</ion-label
+                                            >
+                                            <ion-button
+                                                *ngIf="question.isEditing"
+                                                (click)="removeOption(question, option)"
+                                                slot="end"
+                                                color="danger"
+                                                >Remove</ion-button
+                                            >
+                                        </ion-item>
+                                    </ion-radio-group>
+                                    <ion-toolbar>
+                                        <ion-button
+                                            *ngIf="question.isEditing"
+                                            (click)="addOption(question)"
+                                            slot="end"
+                                            color="primary"
+                                            >Add Option</ion-button
+                                        >
+                                    </ion-toolbar>
+                                </ion-list>
+
+                                <ion-list *ngSwitchCase="questionTypes.check">
+                                    <!-- TODO add a way to edit the value of each option -->
+                                    <ion-item *ngFor="let option of question.options">
+                                        <ion-checkbox
+                                            [value]="option.value"
+                                            slot="start"
+                                        ></ion-checkbox>
+                                        <ion-input
+                                            [(ngModel)]="option.label"
+                                            *ngIf="question.isEditing"
+                                        ></ion-input>
+                                        <ion-label *ngIf="!question.isEditing"
+                                            >{{option.label}}</ion-label
+                                        >
+                                        <ion-button
+                                            *ngIf="question.isEditing"
+                                            (click)="removeOption(question, option)"
+                                            slot="end"
+                                            color="danger"
+                                            >Remove</ion-button
+                                        >
+                                    </ion-item>
+                                    <ion-toolbar>
+                                        <ion-button
+                                            *ngIf="question.isEditing"
+                                            (click)="addOption(question)"
+                                            slot="end"
+                                            color="primary"
+                                            >Add Option</ion-button
+                                        >
+                                    </ion-toolbar>
+                                </ion-list>
+
+                                <div *ngSwitchCase="questionTypes.text">
+                                    <ion-item>
+                                        <ion-label>Placeholder text:</ion-label>
+                                        <ion-input
+                                            [(ngModel)]="question.placeholder"
+                                            placeholder="enter placeholder here..."
+                                        ></ion-input>
+                                    </ion-item>
+                                    <ion-textarea
+                                        [placeholder]="question.placeholder"
+                                    ></ion-textarea>
+                                </div>
+                            </ng-container>
+                        </ion-card-content>
+                    </ion-card>
+                </div>
+
+                <ion-card>
+                    <ion-card class="toolbar-button-container">
+                        <ion-button color="primary" (click)="addQuestion()">
+                            ADD QUESTION
+                        </ion-button>
+                    </ion-card>
+                </ion-card>
             </div>
+        </div>
 
-            <ion-list *ngSwitchCase="questionTypes.radio">
-              <!-- TODO add a way to edit the value of each option -->
-              <ion-radio-group>
-                <ion-item *ngFor="let option of question.options">
-                  <ion-radio [value]="option.value" slot="start"></ion-radio>
-                  <ion-input [(ngModel)]="option.label" *ngIf="question.isEditing"></ion-input>
-                  <ion-label *ngIf="!question.isEditing">{{option.label}}</ion-label>
-                  <ion-button *ngIf="question.isEditing" (click)="removeOption(question, option)" slot="end" color="danger">Remove</ion-button>
-                </ion-item>
-              </ion-radio-group>
-              <ion-button *ngIf="question.isEditing" (click)="addOption(question)" slot="end" >Add Option</ion-button>
-            </ion-list>
-
-            <ion-list *ngSwitchCase="questionTypes.check">
-              <!-- TODO add a way to edit the value of each option -->
-              <ion-item *ngFor="let option of question.options">
-                <ion-checkbox [value]="option.value" slot="start"></ion-checkbox>
-                <ion-input [(ngModel)]="option.label" *ngIf="question.isEditing"></ion-input>
-                <ion-label *ngIf="!question.isEditing">{{option.label}}</ion-label>
-                <ion-button *ngIf="question.isEditing" (click)="removeOption(question, option)" slot="end" color="danger">Remove</ion-button>
-              </ion-item>
-              <ion-button *ngIf="question.isEditing" (click)="addOption(question)" slot="end" >Add Option</ion-button>
-            </ion-list>
-
-            <div *ngSwitchCase="questionTypes.text" >
-              <ion-item>
-                <ion-label>Placeholder text:</ion-label>
-                <ion-input [(ngModel)]="question.placeholder" placeholder="enter placeholder here..."></ion-input>
-              </ion-item>
-              <ion-textarea [placeholder]="question.placeholder"></ion-textarea>
-            </div>
-          </ng-container>
-        </ion-card-content>
-      </ion-card>
-    </div>
-  </div>
-
-  <ion-fab center middle class="save-button-container" slot="fixed">
-    <ion-fab-button (click)="saveSurvey()" class="save-button">
-      <ion-icon class="save-icon" name="save"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
-</ion-content>
+        <ion-fab center middle class="save-button-container" slot="fixed">
+            <ion-fab-button (click)="saveSurvey()" class="save-button">
+                <ion-icon class="save-icon" name="save"></ion-icon>
+            </ion-fab-button>
+        </ion-fab>
+    </ion-content>
+</body>

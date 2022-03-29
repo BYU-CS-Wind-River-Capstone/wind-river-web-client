@@ -1,15 +1,15 @@
 #survey-builder-page {
     display: flex;
-    justify-content: space-between;
-    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
 
-#question-types {
-    width: 20%;
-    max-width: 400px;
-    height: 85vh;
-    margin: 25px;
-    padding-top: 10px;
+#survey-builder-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 90%;
+
 }
 
 .toolbar-button-container {
@@ -23,7 +23,11 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    padding-bottom: 110px; // to leave room for the hugeungeous fab button
+    padding-top: 10px;
+}
+
+.question-type-dropdown {
+    padding-right: 0px;
 }
 
 .question-card {
@@ -82,14 +86,14 @@ ion-select {
     justify-content: left;
 }
 
-@media (max-width: 1000px) {
-    .toolbar-button-container {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        align-items: center;
-    }
+.toolbar-button-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
 
+@media (max-width: 1000px) {
     .toolbar-button {
         width: 90%;
     }
