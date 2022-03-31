@@ -68,7 +68,6 @@ export class StudiesStore {
 
   downloadSurveyResponses(surveyId: string) {
     this.api.getSurveyResponsesById(surveyId).subscribe((responses: SurveyResponse[]) => {
-      console.log({responses});
 
       var numQuestions = 0;
       if (responses.length > 0) {
