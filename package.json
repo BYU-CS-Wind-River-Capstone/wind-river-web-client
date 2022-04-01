@@ -28,6 +28,7 @@
     "@ionic/angular": "^5.5.2",
     "aws-amplify": "^4.3.12",
     "date-fns": "^2.27.0",
+    "json2csv": "^5.0.7",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",
     "zone.js": "~0.11.4"
