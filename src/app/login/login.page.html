@@ -4,11 +4,9 @@
             <ion-card-title>Wind River Provider Login</ion-card-title>
         </ion-card-header>
         <ion-card-content>
-            <ion-input placeholder="username" type="email"></ion-input>
-            <ion-input placeholder="password" type="password"></ion-input>
-            <ion-button [routerLink]="['/studies']" disabled="false" type="submit"
-                >login</ion-button
-            >
+            <ion-input placeholder="username" type="email" [(ngModel)]="username"></ion-input>
+            <ion-input placeholder="password" type="password" [(ngModel)]="password"></ion-input>
+            <ion-button disabled="false" type="submit" (click)="login()">login</ion-button>
             <ion-button disabled="false">reset password</ion-button>
         </ion-card-content>
     </ion-card>
