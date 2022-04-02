@@ -7,7 +7,6 @@ import { Observable } from 'rxjs';
 export class AuthInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-      console.log('we are here now ayo');
     // TODO figure out how to use the refreshToken to keep things going
     const accessToken = localStorage.getItem('LIFE_HEALING_TOKEN');
     if (accessToken) {

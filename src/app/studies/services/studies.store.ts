@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { SurveyStub, Survey, SurveyResponse } from '../../types/survey.types';
 import { StudiesApi } from './studies.api';
-import { parse as JSONToCSV} from 'json2csv'
+import { parse as JSONToCSV} from 'json2csv';
 
 @Injectable({providedIn: 'root'})
 export class StudiesStore {
@@ -23,30 +23,30 @@ export class StudiesStore {
     else{
         const elem = window.document.createElement('a');
         elem.href = window.URL.createObjectURL(blob);
-        elem.download = filename;        
+        elem.download = filename;
         document.body.appendChild(elem);
-        elem.click();        
+        elem.click();
         document.body.removeChild(elem);
     }
   }
 
   async downloadCsv(responses: Array<any>, numQuestions: number) {
-    var csvHeaders = ["createdDate", "userId", "surveyId"]
-    for (var i = 1; i <= numQuestions; ++i) {
-        csvHeaders.push("questionMap." + i);
+    const csvHeaders = ['createdDate', 'userId', 'surveyId'];
+    for (let i = 1; i <= numQuestions; ++i) {
+        csvHeaders.push('questionMap.' + i);
     }
-    csvHeaders.push("title");
+    csvHeaders.push('title');
 
-    var opts = {
+    const opts = {
       fields: csvHeaders,
       flatten: true,
       flattenSeparator: ','
-    }
-    
+    };
+
     const csv = JSONToCSV(responses, opts);
-    
+
     await this.saveCsv(`survey-results-${responses[0].title}.csv`, csv);
-    console.log("completed file download");
+    console.log('completed file download');
   }
 
   getAllSurveys() {
@@ -69,16 +69,16 @@ export class StudiesStore {
   downloadSurveyResponses(surveyId: string) {
     this.api.getSurveyResponsesById(surveyId).subscribe((responses: SurveyResponse[]) => {
 
-      var numQuestions = 0;
+      let numQuestions = 0;
       if (responses.length > 0) {
-        const questions: any = responses[0].questionMap
+        const questions: any = responses[0].questionMap;
 
-        for(var question in questions) {
+        for(const question in questions) {
           if(questions.hasOwnProperty(question)) {
               ++numQuestions;
           }
         }
-        this.downloadCsv(responses, numQuestions)
+        this.downloadCsv(responses, numQuestions);
       }
     });
   }
