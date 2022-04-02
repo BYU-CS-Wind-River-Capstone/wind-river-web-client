@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 import { IonicModule } from '@ionic/angular';
 import { NgModule } from '@angular/core';
 import { StudiesApi } from './services/studies.api';
@@ -15,7 +14,6 @@ import { SurveyListPage } from './pages/survey-list/survey-list.page';
     FormsModule,
     IonicModule,
     StudiesRoutingModule,
-    HttpClientModule
   ],
   declarations: [SurveyBuilderPage, SurveyListPage ],
   providers: [StudiesApi, StudiesStore]

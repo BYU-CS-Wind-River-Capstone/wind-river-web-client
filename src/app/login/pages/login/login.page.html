@@ -1,0 +1,15 @@
+<ion-content>
+    <ion-card>
+        <ion-card-header>
+            <ion-card-title>Wind River Provider Login</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <form [formGroup]="form">
+            <ion-input placeholder="username" type="email" formControlName="username"></ion-input>
+            <ion-input placeholder="password" type="password" formControlName="password"></ion-input>
+            <ion-button type="submit" (click)="login()">login</ion-button>
+            <ion-button>reset password</ion-button>
+          </form>
+        </ion-card-content>
+    </ion-card>
+</ion-content>
