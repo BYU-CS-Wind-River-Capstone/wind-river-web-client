@@ -16,3 +16,17 @@ ion-card-title {
   justify-content: center;
   margin-top: 12px;
 }
+
+.modal {
+
+  .title {
+    margin: 12px 0;
+  }
+  .form {
+    display: grid;
+    gap: 24px;
+    margin: 0 12px;
+  }
+  .action-buttons {
+  }
+}

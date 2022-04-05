@@ -12,9 +12,8 @@
       <ion-card-title>
         {{resource.title}}
         <div class="action-buttons">
-          <!-- TODO hook up these buttons -->
-          <ion-button><ion-icon name="pencil-outline"></ion-icon></ion-button>
-          <ion-button><ion-icon name="trash-outline"></ion-icon></ion-button>
+          <ion-button (click)="editResource(resource)"><ion-icon name="pencil-outline"></ion-icon></ion-button>
+          <ion-button (click)="store.deleteResource(resource)"><ion-icon name="trash-outline"></ion-icon></ion-button>
         </div>
       </ion-card-title>
       <ion-grid>
@@ -31,10 +30,29 @@
     </div>
   </div>
 
-  <!-- TODO figure out how to make this work -->
   <ion-modal [isOpen]="isModalOpen">
     <ng-template>
-      TODO add the form to create the resource
+      <ion-content class="modal">
+        <ion-title class="title">{{ isCreateMode ? 'Create' : 'Edit'}} Resource</ion-title>
+        <form [formGroup]="form" class="form">
+          <ion-item>
+            <ion-label>Title:</ion-label>
+            <ion-input required inputmode="text" formControlName="title"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Description:</ion-label>
+            <ion-input required inputmode="text" formControlName="description"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Url:</ion-label>
+            <ion-input required inputmode="text" formControlName="url"></ion-input>
+          </ion-item>
+        </form>
+        <div class="action-buttons">
+          <ion-button (click)="onCancel()">Cancel</ion-button>
+          <ion-button (click)="onSubmit()">Submit</ion-button>
+        </div>
+      </ion-content>
     </ng-template>
   </ion-modal>
 </ion-content>

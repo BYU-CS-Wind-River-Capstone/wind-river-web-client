@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { LearningResource } from 'src/app/types/learning-resource.types';
 import { apiURL } from 'src/environments/environment';
 
@@ -9,20 +9,18 @@ export class LearningResourcesApi {
     constructor(private http: HttpClient) {}
 
     createLearningResource(resource: LearningResource): Observable<LearningResource> {
-      return null;
-      // return this.http.post<Survey>(`${apiURL}/survey/create`, survey);
+      return this.http.post<LearningResource>(`${apiURL}/learning-resource/create`, resource);
     }
 
     getAllLearningResources(): Observable<LearningResource[]> {
-      return null;
-      // return this.http.get<SurveyStub[]>(`${apiURL}/survey`);
+      return this.http.get<LearningResource[]>(`${apiURL}/learning-resource`);
     }
 
     editLearningResource(resource: LearningResource): Observable<LearningResource> {
-      return null;
+      throw new Error('edit not implemented');
     }
 
-    deleteLearningResource(resourceId: string): Observable<LearningResource> {
-      return null;
+    deleteLearningResource(resource: LearningResource): Observable<string> {
+      return this.http.post<string>(`${apiURL}/learning-resource/delete`, resource);
     }
 }
