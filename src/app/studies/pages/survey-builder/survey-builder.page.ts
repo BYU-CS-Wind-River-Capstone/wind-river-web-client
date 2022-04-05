@@ -32,11 +32,11 @@ export class SurveyBuilderPage {
       if (survey.repeatingSchedule == this.schedule.none) {
           return "Does not repeat";
       } else if (survey.repeatingSchedule == this.schedule.daily) {
-          return "Repeat daily";
+          return "Repeats daily";
       } else if (survey.repeatingSchedule == this.schedule.weekly) {
-          return "Repeat weekly";
+          return "Repeats weekly";
       } else if (survey.repeatingSchedule == this.schedule.monthly) {
-          return "Repeat monthly";
+          return "Repeats monthly";
       }
   }
 
