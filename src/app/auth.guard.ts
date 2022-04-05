@@ -1,13 +1,14 @@
+import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot } from '@angular/router';
+
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
-import { take } from 'rxjs/operators';
 import { apiURL } from 'src/environments/environment';
+import { take } from 'rxjs/operators';
 
 @Injectable()
 export class AuthGuard implements CanActivate, CanActivateChild {
-  // TODO if this ends up being expensive for Dr. Hart, we might just switch it to check for the existance of the token
+  // TODO if this ends up being expensive for Dr. Hart, we might just switch it to check for the existence of the token
   constructor( private router: Router, private http: HttpClient) {}
 
   async canActivate(

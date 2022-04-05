@@ -11,13 +11,53 @@
         <div id="survey-builder-page">
             <div id="survey-builder-container">
                 <div id="question-bank">
-                    <ion-card class="question-card">
-                        <ion-card-header>
+                    <ion-card class="question-card survey-data-container">
+                        <ion-card-header class="survey-data-fields">
                             <!-- TODO make the title and description editable -->
-                            <ion-card-title>{{survey.title}}</ion-card-title>
-                            <ion-card-subtitle>{{survey.description}}</ion-card-subtitle>
+                            <ion-card-title *ngIf="!survey.isEditing"
+                                >{{survey.title}}</ion-card-title
+                            >
+                            <ion-input
+                                *ngIf="survey.isEditing"
+                                [(ngModel)]="survey.title"
+                            ></ion-input>
+                            <ion-card-subtitle *ngIf="!survey.isEditing"
+                                >{{survey.description}}</ion-card-subtitle
+                            >
+                            <ion-textarea
+                                *ngIf="survey.isEditing"
+                                [(ngModel)]="survey.description"
+                            ></ion-textarea>
+                            <ion-select
+                                *ngIf="survey.isEditing"
+                                [(ngModel)]="survey.repeatingSchedule"
+                                okText="Apply"
+                                cancelText="Cancel"
+                                placeholder="Schedule"
+                                class="schedule-selector"
+                            >
+                                <ion-select-option [value]="schedule.none">None</ion-select-option>
+                                <ion-select-option [value]="schedule.daily"
+                                    >Daily
+                                </ion-select-option>
+                                <ion-select-option [value]="schedule.weekly"
+                                    >Weekly
+                                </ion-select-option>
+                                <ion-select-option [value]="schedule.monthly"
+                                    >Monthly
+                                </ion-select-option>
+                            </ion-select>
+                            <ion-card-subtitle *ngIf="!survey.isEditing"
+                                >{{getEnumTextValue(survey)}}</ion-card-subtitle
+                            >
                             <!-- TODO add an editable due date or recurring due schedule -->
                         </ion-card-header>
+                        <ion-button *ngIf="survey.isEditing" (click)="editSurveyData(survey, false)"
+                            >Save Survey</ion-button
+                        >
+                        <ion-button *ngIf="!survey.isEditing" (click)="editSurveyData(survey, true)"
+                            >Edit Survey</ion-button
+                        >
                     </ion-card>
                     <ion-card *ngFor="let question of survey.questions" class="question-card">
                         <ion-item>
@@ -145,7 +185,6 @@
                                 </div>
 
                                 <ion-list *ngSwitchCase="questionTypes.radio">
-                                    <!-- TODO add a way to edit the value of each option -->
                                     <ion-radio-group>
                                         <ion-item *ngFor="let option of question.options">
                                             <ion-radio
