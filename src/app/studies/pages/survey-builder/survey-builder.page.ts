@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Question, QuestionTypes, Survey } from '../../../types/survey.types';
+import { Question, QuestionTypes, Schedule, Survey } from '../../../types/survey.types';
 
+import { NONE_TYPE } from '@angular/compiler';
 import { StudiesApi } from '../../services/studies.api';
 import { add } from 'date-fns';
 
@@ -13,12 +14,19 @@ export class SurveyBuilderPage {
   questionTypes = QuestionTypes;
   survey: Survey = {
     title: 'Survey Title',
+    isEditing: false,
+    repeatingSchedule: Schedule.NONE,
     description: 'Survey description',
     dueDate: add(new Date(), { days: 1}),
     questions: [],
   };
 
   constructor(private api: StudiesApi) {  }
+
+  editSurveyData(survey: Survey, isEditing: boolean) {
+    survey.isEditing = isEditing;
+    console.log("survey.isEditing = " + survey.isEditing);
+  }
 
   toggleEdit(question: Question) {
     question.isEditing = !question.isEditing;

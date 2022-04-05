@@ -43,9 +43,18 @@ export enum QuestionTypes {
   export class Survey {
     id?: string;
     title: string;
+    isEditing: boolean;
     description: string;
-    dueDate: Date; // TODO figure out what we want to do about survey recurrance
+    repeatingSchedule: Schedule;
+    dueDate: Date; // TODO figure out what we want to do about survey recurrence
     questions: Question[];
+  }
+
+  export enum Schedule {
+      NONE,
+      DAILY,
+      WEEKLY,
+      MONTHLY
   }
 
   export class SurveyStub {
