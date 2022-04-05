@@ -12,6 +12,15 @@
 
 }
 
+.survey-data-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 10px;
+    padding-bottom: 10px;
+}
+
 .toolbar-button-container {
     display: flex;
     flex-direction: row;

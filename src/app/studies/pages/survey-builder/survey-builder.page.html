@@ -11,13 +11,14 @@
         <div id="survey-builder-page">
             <div id="survey-builder-container">
                 <div id="question-bank">
-                    <ion-card class="question-card">
+                    <ion-card class="question-card survey-data-container">
                         <ion-card-header>
                             <!-- TODO make the title and description editable -->
                             <ion-card-title>{{survey.title}}</ion-card-title>
                             <ion-card-subtitle>{{survey.description}}</ion-card-subtitle>
                             <!-- TODO add an editable due date or recurring due schedule -->
                         </ion-card-header>
+                        <ion-button>Edit Survey</ion-button>
                     </ion-card>
                     <ion-card *ngFor="let question of survey.questions" class="question-card">
                         <ion-item>
@@ -145,7 +146,6 @@
                                 </div>
 
                                 <ion-list *ngSwitchCase="questionTypes.radio">
-                                    <!-- TODO add a way to edit the value of each option -->
                                     <ion-radio-group>
                                         <ion-item *ngFor="let option of question.options">
                                             <ion-radio
