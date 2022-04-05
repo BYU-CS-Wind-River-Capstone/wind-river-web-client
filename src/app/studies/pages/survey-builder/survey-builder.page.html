@@ -28,6 +28,25 @@
                                 *ngIf="survey.isEditing"
                                 [(ngModel)]="survey.description"
                             ></ion-textarea>
+                            <ion-select
+                                *ngIf="survey.isEditing"
+                                [(ngModel)]="survey.repeatingSchedule"
+                                okText="Apply"
+                                cancelText="Cancel"
+                                placeholder="Schedule"
+                                class="schedule-selector"
+                            >
+                                <ion-select-option [value]="Schedule.NONE">None</ion-select-option>
+                                <ion-select-option [value]="Schedule.DAILY"
+                                    >Daily
+                                </ion-select-option>
+                                <ion-select-option [value]="Schedule.WEEKLY"
+                                    >Weekly
+                                </ion-select-option>
+                                <ion-select-option [value]="Schedule.MONTHLY"
+                                    >Monthly
+                                </ion-select-option>
+                            </ion-select>
                             <!-- TODO add an editable due date or recurring due schedule -->
                         </ion-card-header>
                         <ion-button *ngIf="survey.isEditing" (click)="editSurveyData(survey, false)"

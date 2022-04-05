@@ -26,6 +26,7 @@ export class SurveyBuilderPage {
   editSurveyData(survey: Survey, isEditing: boolean) {
     survey.isEditing = isEditing;
     console.log("survey.isEditing = " + survey.isEditing);
+    console.log("survey.repeatingSchedule = " + survey.repeatingSchedule);
   }
 
   toggleEdit(question: Question) {
