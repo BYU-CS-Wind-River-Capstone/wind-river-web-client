@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import { Router } from '@angular/router';
 import { StudiesStore } from '../../services/studies.store';
 
 @Component({
@@ -8,6 +9,10 @@ import { StudiesStore } from '../../services/studies.store';
 })
 export class  SurveyListPage {
 
-  constructor( public store: StudiesStore) {}
+  constructor( public store: StudiesStore, private router: Router) {}
+
+  createSurvey() {
+    this.router.navigateByUrl('/studies');
+  }
 
 }

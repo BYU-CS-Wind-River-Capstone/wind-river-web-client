@@ -39,5 +39,6 @@ export class AuthGuard implements CanActivate, CanActivateChild {
   checkToken(): Observable<any> {
     // TODO create an endpoint that verifies provider tokens
     return this.http.get<any>(`${apiURL}/auth/checkToken`);
+    // return this.http.get<any>(`${apiURL}/auth/checkProviderToken`);
   }
 }

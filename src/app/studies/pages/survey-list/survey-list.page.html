@@ -37,5 +37,11 @@
         </ion-row> -->
       </ion-grid>
     </ion-card>
+    <div class="no-surveys" *ngIf="!store.surveyList.length">
+      There are no Surveys to display.
+    </div>
+    <div class="create-button-container">
+      <ion-button (click)="createSurvey()">Create New Survey</ion-button>
+    </div>
   </div>
 </ion-content>
