@@ -12,13 +12,30 @@
             <div id="survey-builder-container">
                 <div id="question-bank">
                     <ion-card class="question-card survey-data-container">
-                        <ion-card-header>
+                        <ion-card-header class="survey-data-fields">
                             <!-- TODO make the title and description editable -->
-                            <ion-card-title>{{survey.title}}</ion-card-title>
-                            <ion-card-subtitle>{{survey.description}}</ion-card-subtitle>
+                            <ion-card-title *ngIf="!survey.isEditing"
+                                >{{survey.title}}</ion-card-title
+                            >
+                            <ion-input
+                                *ngIf="survey.isEditing"
+                                [(ngModel)]="survey.title"
+                            ></ion-input>
+                            <ion-card-subtitle *ngIf="!survey.isEditing"
+                                >{{survey.description}}</ion-card-subtitle
+                            >
+                            <ion-textarea
+                                *ngIf="survey.isEditing"
+                                [(ngModel)]="survey.description"
+                            ></ion-textarea>
                             <!-- TODO add an editable due date or recurring due schedule -->
                         </ion-card-header>
-                        <ion-button>Edit Survey</ion-button>
+                        <ion-button *ngIf="survey.isEditing" (click)="editSurveyData(survey, false)"
+                            >Save Survey</ion-button
+                        >
+                        <ion-button *ngIf="!survey.isEditing" (click)="editSurveyData(survey, true)"
+                            >Edit Survey</ion-button
+                        >
                     </ion-card>
                     <ion-card *ngFor="let question of survey.questions" class="question-card">
                         <ion-item>

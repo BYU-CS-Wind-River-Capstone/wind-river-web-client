@@ -17,8 +17,11 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding-right: 10px;
-    padding-bottom: 10px;
+    padding: 10px;
+}
+
+.survey-data-fields {
+    width: 75%;
 }
 
 .toolbar-button-container {
