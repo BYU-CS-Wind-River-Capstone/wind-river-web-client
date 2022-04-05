@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Question, QuestionTypes, Schedule, Survey } from '../../../types/survey.types';
 
-import { NONE_TYPE } from '@angular/compiler';
 import { StudiesApi } from '../../services/studies.api';
 import { add } from 'date-fns';
 
@@ -12,10 +11,11 @@ import { add } from 'date-fns';
 })
 export class SurveyBuilderPage {
   questionTypes = QuestionTypes;
+  schedule = Schedule;
   survey: Survey = {
     title: 'Survey Title',
     isEditing: false,
-    repeatingSchedule: Schedule.NONE,
+    repeatingSchedule: this.schedule.none,
     description: 'Survey description',
     dueDate: add(new Date(), { days: 1}),
     questions: [],
@@ -25,8 +25,19 @@ export class SurveyBuilderPage {
 
   editSurveyData(survey: Survey, isEditing: boolean) {
     survey.isEditing = isEditing;
-    console.log("survey.isEditing = " + survey.isEditing);
-    console.log("survey.repeatingSchedule = " + survey.repeatingSchedule);
+    console.log(survey.repeatingSchedule);
+  }
+
+  getEnumTextValue(survey: Survey) {
+      if (survey.repeatingSchedule == this.schedule.none) {
+          return "Does not repeat";
+      } else if (survey.repeatingSchedule == this.schedule.daily) {
+          return "Repeat daily";
+      } else if (survey.repeatingSchedule == this.schedule.weekly) {
+          return "Repeat weekly";
+      } else if (survey.repeatingSchedule == this.schedule.monthly) {
+          return "Repeat monthly";
+      }
   }
 
   toggleEdit(question: Question) {

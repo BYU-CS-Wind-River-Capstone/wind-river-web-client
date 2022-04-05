@@ -36,17 +36,20 @@
                                 placeholder="Schedule"
                                 class="schedule-selector"
                             >
-                                <ion-select-option [value]="Schedule.NONE">None</ion-select-option>
-                                <ion-select-option [value]="Schedule.DAILY"
+                                <ion-select-option [value]="schedule.none">None</ion-select-option>
+                                <ion-select-option [value]="schedule.daily"
                                     >Daily
                                 </ion-select-option>
-                                <ion-select-option [value]="Schedule.WEEKLY"
+                                <ion-select-option [value]="schedule.weekly"
                                     >Weekly
                                 </ion-select-option>
-                                <ion-select-option [value]="Schedule.MONTHLY"
+                                <ion-select-option [value]="schedule.monthly"
                                     >Monthly
                                 </ion-select-option>
                             </ion-select>
+                            <ion-card-subtitle *ngIf="!survey.isEditing"
+                                >{{getEnumTextValue(survey)}}</ion-card-subtitle
+                            >
                             <!-- TODO add an editable due date or recurring due schedule -->
                         </ion-card-header>
                         <ion-button *ngIf="survey.isEditing" (click)="editSurveyData(survey, false)"

@@ -51,10 +51,10 @@ export enum QuestionTypes {
   }
 
   export enum Schedule {
-      NONE,
-      DAILY,
-      WEEKLY,
-      MONTHLY
+      none = 'NONE',
+      daily = 'DAILY',
+      weekly = 'WEEKLY',
+      monthly = 'MONTHLY'
   }
 
   export class SurveyStub {
