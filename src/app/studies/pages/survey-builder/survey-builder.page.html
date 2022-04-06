@@ -13,7 +13,6 @@
                 <div id="question-bank">
                     <ion-card class="question-card survey-data-container">
                         <ion-card-header class="survey-data-fields">
-                            <!-- TODO make the title and description editable -->
                             <ion-card-title *ngIf="!survey.isEditing"
                                 >{{survey.title}}</ion-card-title
                             >
@@ -50,7 +49,6 @@
                             <ion-card-subtitle *ngIf="!survey.isEditing"
                                 >{{getEnumTextValue(survey)}}</ion-card-subtitle
                             >
-                            <!-- TODO add an editable due date or recurring due schedule -->
                         </ion-card-header>
                         <ion-button *ngIf="survey.isEditing" (click)="editSurveyData(survey, false)"
                             >Save Survey</ion-button
