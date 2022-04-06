@@ -12,12 +12,14 @@ import { add } from 'date-fns';
 export class SurveyBuilderPage {
   questionTypes = QuestionTypes;
   schedule = Schedule;
+  minimumDate = new Date().toISOString();
+  maximumDate = add(new Date(), {years: 2}).toISOString();
   survey: Survey = {
     title: 'Survey Title',
     isEditing: false,
     repeatingSchedule: this.schedule.none,
     description: 'Survey description',
-    dueDate: add(new Date(), { days: 1}),
+    dueDate: new Date().toDateString(),
     questions: [],
   };
 
@@ -26,7 +28,12 @@ export class SurveyBuilderPage {
   editSurveyData(survey: Survey, isEditing: boolean) {
     survey.isEditing = isEditing;
     console.log(survey.repeatingSchedule);
+    console.log(survey.dueDate);
   }
+
+//   getDateAsString(survey: Survey) {
+//       return survey.dueDate.getDate().toString();
+//   }
 
   getEnumTextValue(survey: Survey) {
       if (survey.repeatingSchedule == this.schedule.none) {

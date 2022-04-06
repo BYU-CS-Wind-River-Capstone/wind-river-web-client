@@ -46,7 +46,7 @@ export enum QuestionTypes {
     isEditing: boolean;
     description: string;
     repeatingSchedule: Schedule;
-    dueDate: Date; // TODO figure out what we want to do about survey recurrence
+    dueDate: String; // TODO figure out what we want to do about survey recurrence
     questions: Question[];
   }
 
