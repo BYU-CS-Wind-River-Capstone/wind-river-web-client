@@ -49,6 +49,22 @@
                             <ion-card-subtitle *ngIf="!survey.isEditing"
                                 >{{getEnumTextValue(survey)}}</ion-card-subtitle
                             >
+                            <div *ngIf="survey.isEditing">
+                                <ion-datetime
+                                    placeholder="{{survey.dueDate}}"
+                                    [(ngModel)]="survey.dueDate"
+                                    value="{{survey.dueDate | date:'longDate'}}"
+                                    min="{{minimumDate}}"
+                                    max="{{maximumDate}}"
+                                >
+                                </ion-datetime>
+                            </div>
+                            <div *ngIf="!survey.isEditing">
+                                <ion-card-subtitle
+                                    >Due Date: {{survey.dueDate |
+                                    date:'longDate'}}</ion-card-subtitle
+                                >
+                            </div>
                         </ion-card-header>
                         <ion-button *ngIf="survey.isEditing" (click)="editSurveyData(survey, false)"
                             >Save Survey</ion-button
