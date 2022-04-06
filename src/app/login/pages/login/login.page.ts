@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastController } from '@ionic/angular';
-import { Router } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
+
 import { LoginStore } from '../../services/login.store';
+import { Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';
 
 @Component({
     selector: 'app-login',
@@ -24,7 +25,7 @@ export class LoginPage implements OnInit {
         (tokens) => {
           this.store.saveUser(tokens);
           this.presentToast('Welcome!', 2000, 'primary');
-          this.navigatePage('/studies');
+          this.navigatePage('/studies/surveys');
         },
         (err) => {
           this.presentToast(err.error.message, 10000, 'danger');
