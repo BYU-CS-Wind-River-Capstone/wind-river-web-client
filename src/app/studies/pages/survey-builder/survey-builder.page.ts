@@ -27,13 +27,7 @@ export class SurveyBuilderPage {
 
   editSurveyData(survey: Survey, isEditing: boolean) {
     survey.isEditing = isEditing;
-    console.log(survey.repeatingSchedule);
-    console.log(survey.dueDate);
   }
-
-//   getDateAsString(survey: Survey) {
-//       return survey.dueDate.getDate().toString();
-//   }
 
   getEnumTextValue(survey: Survey) {
       if (survey.repeatingSchedule == this.schedule.none) {
