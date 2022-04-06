@@ -52,6 +52,7 @@ export enum QuestionTypes {
 
   export enum Schedule {
       none = 'NONE',
+      always = 'ALWAYS',
       daily = 'DAILY',
       weekly = 'WEEKLY',
       monthly = 'MONTHLY'
