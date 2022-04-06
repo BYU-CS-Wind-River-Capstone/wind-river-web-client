@@ -22,6 +22,6 @@ export class StudiesApi {
     }
 
     getSurveyResponsesById(surveyId: string): Observable<SurveyResponse[]> {
-        return this.http.get<SurveyResponse[]>(`${apiURL}/survey/response/survey/${surveyId}`)
+        return this.http.get<SurveyResponse[]>(`${apiURL}/response/survey/${surveyId}`)
     }
 }
