@@ -12,13 +12,16 @@
       <ion-card-title>
         {{resource.title}}
         <div class="action-buttons">
-          <ion-button (click)="editResource(resource)"><ion-icon name="pencil-outline"></ion-icon></ion-button>
+          <!-- <ion-button (click)="editResource(resource)"><ion-icon name="pencil-outline"></ion-icon></ion-button> -->
           <ion-button (click)="store.deleteResource(resource)"><ion-icon name="trash-outline"></ion-icon></ion-button>
         </div>
       </ion-card-title>
       <ion-grid>
         <ion-row>
           <ion-col>{{resource.description}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>{{resource.updatedDate | date:'mediumDate'}}</ion-col>
         </ion-row>
       </ion-grid>
     </ion-card>
@@ -44,8 +47,8 @@
             <ion-input required inputmode="text" formControlName="description"></ion-input>
           </ion-item>
           <ion-item>
-            <ion-label>Url:</ion-label>
-            <ion-input required inputmode="text" formControlName="url"></ion-input>
+            <ion-label>Resource Link:</ion-label>
+            <ion-input required inputmode="text" formControlName="resourceLink"></ion-input>
           </ion-item>
         </form>
         <div class="action-buttons">

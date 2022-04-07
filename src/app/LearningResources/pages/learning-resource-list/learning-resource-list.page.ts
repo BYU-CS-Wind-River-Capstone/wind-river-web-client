@@ -22,7 +22,7 @@ export class  LearningResourceListPage {
     this.form = this.fb.group({
       title: [this.currentResource.title || '', Validators.required],
       description: [this.currentResource.description || '', Validators.required],
-      url: [this.currentResource.url || '', Validators.required],
+      resourceLink: [this.currentResource.resourceLink || '', Validators.required],
     });
   }
 
@@ -31,7 +31,7 @@ export class  LearningResourceListPage {
     this.currentResource = {
       title: '',
       description: '',
-      url: '',
+      resourceLink: '',
     };
     this.openModal();
   }
@@ -51,7 +51,6 @@ export class  LearningResourceListPage {
       if (this.isCreateMode) {
         this.store.createResource(this.form.value);
       } else {
-        // TODO implement this
         // this.store.editResource(this.form.value);
       }
       this.closeModal();

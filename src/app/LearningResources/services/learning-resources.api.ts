@@ -16,11 +16,11 @@ export class LearningResourcesApi {
       return this.http.get<LearningResource[]>(`${apiURL}/learning-resource`);
     }
 
-    editLearningResource(resource: LearningResource): Observable<LearningResource> {
-      throw new Error('edit not implemented');
-    }
+    // editLearningResource(resource: LearningResource): Observable<LearningResource> {
+    //   return this.http.post<LearningResource>(`${apiURL}/learning-resource/edit`, resource);
+    // }
 
-    deleteLearningResource(resource: LearningResource): Observable<string> {
-      return this.http.post<string>(`${apiURL}/learning-resource/delete`, resource);
+    deleteLearningResource(resource: LearningResource): Observable<LearningResource> {
+      return this.http.post<LearningResource>(`${apiURL}/learning-resource/delete`, resource);
     }
 }

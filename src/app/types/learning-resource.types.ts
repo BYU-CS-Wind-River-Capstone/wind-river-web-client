@@ -2,5 +2,6 @@ export class LearningResource {
   id?: string;
   title: string;
   description: string;
-  url: string;
+  resourceLink: string;
+  updatedDate?: string; // ISO date string
 }
