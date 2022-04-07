@@ -1,0 +1,61 @@
+<ion-toolbar>
+  <ion-title>Learning Resource List</ion-title>
+</ion-toolbar>
+
+<ion-content [fullscreen]="true">
+    <ion-toolbar>
+      <ion-title size="large">Learning Resource List</ion-title>
+    </ion-toolbar>
+
+  <div>
+    <ion-card *ngFor="let resource of store.learningResourceList">
+      <ion-card-title>
+        {{resource.title}}
+        <div class="action-buttons">
+          <!-- <ion-button (click)="editResource(resource)"><ion-icon name="pencil-outline"></ion-icon></ion-button> -->
+          <ion-button (click)="store.deleteResource(resource)"><ion-icon name="trash-outline"></ion-icon></ion-button>
+        </div>
+      </ion-card-title>
+      <ion-grid>
+        <ion-row>
+          <ion-col>{{resource.description}}</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>{{resource.updatedDate | date:'mediumDate'}}</ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card>
+    <div class="no-resources" *ngIf="!store.learningResourceList.length">
+      There are no Learning Resources to display.
+    </div>
+    <div class="create-button-container">
+      <ion-button (click)="createResource()">Create New Resource</ion-button>
+    </div>
+  </div>
+
+  <ion-modal [isOpen]="isModalOpen">
+    <ng-template>
+      <ion-content class="modal">
+        <ion-title class="title">{{ isCreateMode ? 'Create' : 'Edit'}} Resource</ion-title>
+        <form [formGroup]="form" class="form">
+          <ion-item>
+            <ion-label>Title:</ion-label>
+            <ion-input required inputmode="text" formControlName="title"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Description:</ion-label>
+            <ion-input required inputmode="text" formControlName="description"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Resource Link:</ion-label>
+            <ion-input required inputmode="text" formControlName="resourceLink"></ion-input>
+          </ion-item>
+        </form>
+        <div class="action-buttons">
+          <ion-button (click)="onCancel()">Cancel</ion-button>
+          <ion-button (click)="onSubmit()">Submit</ion-button>
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>
