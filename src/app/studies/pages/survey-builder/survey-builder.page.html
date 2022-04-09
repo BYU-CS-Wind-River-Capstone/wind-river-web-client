@@ -70,7 +70,7 @@
                             </div>
                         </ion-card-header>
                         <ion-button *ngIf="survey.isEditing" (click)="editSurveyData(survey, false)"
-                            >Save Survey</ion-button
+                            >Done Editing</ion-button
                         >
                         <ion-button *ngIf="!survey.isEditing" (click)="editSurveyData(survey, true)"
                             >Edit Survey</ion-button
@@ -109,9 +109,11 @@
                                 <ion-select-option [value]="questionTypes.bool"
                                     >Yes or No</ion-select-option
                                 >
+                                <!--
                                 <ion-select-option [value]="questionTypes.check"
                                     >Select All That Apply</ion-select-option
                                 >
+                                -->
                                 <ion-select-option [value]="questionTypes.text"
                                     >Free Response</ion-select-option
                                 >
@@ -204,10 +206,9 @@
                                 <ion-list *ngSwitchCase="questionTypes.radio">
                                     <ion-radio-group>
                                         <ion-item *ngFor="let option of question.options">
-                                            <ion-radio
-                                                [value]="option.value"
-                                                slot="start"
-                                            ></ion-radio>
+                                          <ion-radio
+                                            slot="start"
+                                          ></ion-radio>
                                             <ion-input
                                                 [(ngModel)]="option.label"
                                                 *ngIf="question.isEditing"
@@ -234,9 +235,9 @@
                                         >
                                     </ion-toolbar>
                                 </ion-list>
-
+                                <!--
                                 <ion-list *ngSwitchCase="questionTypes.check">
-                                    <!-- TODO add a way to edit the value of each option -->
+                                   TODO add a way to edit the value of each option
                                     <ion-item *ngFor="let option of question.options">
                                         <ion-checkbox
                                             [value]="option.value"
@@ -267,6 +268,7 @@
                                         >
                                     </ion-toolbar>
                                 </ion-list>
+                              -->
 
                                 <div *ngSwitchCase="questionTypes.text">
                                     <ion-item>

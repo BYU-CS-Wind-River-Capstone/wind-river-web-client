@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core'
-import { Question, QuestionTypes, Schedule, Survey } from '../../../types/survey.types'
+import { Component, OnInit } from '@angular/core';
+import { Question, QuestionTypes, Schedule, Survey } from '../../../types/survey.types';
 
-import { StudiesApi } from '../../services/studies.api'
-import { add } from 'date-fns'
+import { StudiesApi } from '../../services/studies.api';
+import { add } from 'date-fns';
 
 @Component({
     selector: 'app-survey-builder',
@@ -10,10 +10,10 @@ import { add } from 'date-fns'
     styleUrls: ['./survey-builder.page.scss'],
 })
 export class SurveyBuilderPage {
-    questionTypes = QuestionTypes
-    schedule = Schedule
-    minimumDate = new Date().toISOString()
-    maximumDate = add(new Date(), { years: 2 }).toISOString()
+    questionTypes = QuestionTypes;
+    schedule = Schedule;
+    minimumDate = new Date().toISOString();
+    maximumDate = add(new Date(), { years: 2 }).toISOString();
     survey: Survey = {
         title: 'Survey Title',
         isEditing: false,
@@ -21,49 +21,49 @@ export class SurveyBuilderPage {
         description: 'Survey description',
         dueDate: new Date().toDateString(),
         questions: [],
-    }
+    };
 
     constructor(private api: StudiesApi) {}
 
     editSurveyData(survey: Survey, isEditing: boolean) {
-        survey.isEditing = isEditing
+        survey.isEditing = isEditing;
     }
 
     getEnumTextValue(survey: Survey) {
-        if (survey.repeatingSchedule == this.schedule.none) {
-            return 'Does not repeat'
-        } else if (survey.repeatingSchedule == this.schedule.always) {
-            return 'Always available'
-        } else if (survey.repeatingSchedule == this.schedule.daily) {
-            return 'Repeats daily'
-        } else if (survey.repeatingSchedule == this.schedule.weekly) {
-            return 'Repeats weekly'
-        } else if (survey.repeatingSchedule == this.schedule.monthly) {
-            return 'Repeats monthly'
+        if (survey.repeatingSchedule === this.schedule.none) {
+            return 'Does not repeat';
+        } else if (survey.repeatingSchedule === this.schedule.always) {
+            return 'Always available';
+        } else if (survey.repeatingSchedule === this.schedule.daily) {
+            return 'Repeats daily';
+        } else if (survey.repeatingSchedule === this.schedule.weekly) {
+            return 'Repeats weekly';
+        } else if (survey.repeatingSchedule === this.schedule.monthly) {
+            return 'Repeats monthly';
         }
     }
 
     toggleEdit(question: Question) {
-        question.isEditing = !question.isEditing
+        question.isEditing = !question.isEditing;
     }
 
     moveQuestionUp(question: Question) {
-        const index = this.survey.questions.indexOf(question)
+        const index = this.survey.questions.indexOf(question);
         if (index > 0) {
             ;[this.survey.questions[index], this.survey.questions[index - 1]] = [
                 this.survey.questions[index - 1],
                 this.survey.questions[index],
-            ]
+            ];
         }
     }
 
     moveQuestionDown(question: Question) {
-        const index = this.survey.questions.indexOf(question)
+        const index = this.survey.questions.indexOf(question);
         if (index < this.survey.questions.length - 1) {
             ;[this.survey.questions[index], this.survey.questions[index + 1]] = [
                 this.survey.questions[index + 1],
                 this.survey.questions[index],
-            ]
+            ];
         }
     }
 
@@ -73,96 +73,98 @@ export class SurveyBuilderPage {
             type: QuestionTypes.bool,
             isEditing: true,
             options: [],
-        })
+        });
     }
 
     removeQuestion(question: Question) {
-        const index = this.survey.questions.indexOf(question)
+        const index = this.survey.questions.indexOf(question);
         if (index > -1) {
-            this.survey.questions.splice(index, 1)
+            this.survey.questions.splice(index, 1);
         } else {
-            this.survey.questions.pop()
+            this.survey.questions.pop();
         }
     }
 
     addOption(question: Question) {
         question.options.push({
-            label: '',
-            value: '',
-        })
+            label: ''
+        });
     }
 
     removeOption(question: Question, option) {
-        const index = question.options.indexOf(option)
+        const index = question.options.indexOf(option);
         if (index > -1) {
-            question.options.splice(index, 1)
+            question.options.splice(index, 1);
         }
     }
 
     saveResponse(question: Question) {
-        this.toggleEdit(question)
+        this.toggleEdit(question);
     }
 
     onTypeChange(value: QuestionTypes, question: Question) {
         switch (value) {
             case QuestionTypes.bool:
-                break
+                break;
+            /*
             case QuestionTypes.check:
-                question.options = [{ label: '', value: '' }]
-                break
+                question.options = [{ label: '' }];
+                break;*/
             case QuestionTypes.slider:
-                question.startLabel = 'START'
-                question.endLabel = 'END'
-                question.min = 1
-                question.max = 6
-                question.step = 1
+                question.startLabel = 'START';
+                question.endLabel = 'END';
+                question.min = 1;
+                question.max = 6;
+                question.step = 1;
 
                 //If we want to make min/max number options dynamic
                 //question.minNumbers = Array(question.max - question.min).fill(null).map((x,i)=>i + 1);
                 //question.maxNumbers = Array(11 - question.min).fill(null).map((x,i)=>i + 1 + question.min);
-                break
+                break;
             case QuestionTypes.radio:
-                question.options = [{ label: '', value: '' }]
-                break
+                question.options = [{ label: '' }];
+                break;
             case QuestionTypes.text:
-                question.placeholder = 'Enter response here...'
-                break
+                question.placeholder = 'Enter response here...';
+                break;
             default:
-                break
+                break;
         }
     }
 
     saveSurvey() {
-        const formattedSurvey = { ...this.survey }
+        const formattedSurvey = { ...this.survey };
         formattedSurvey.questions.forEach((question: Question) => {
-            delete question.isEditing
+            delete question.isEditing;
             switch (question.type) {
                 case QuestionTypes.slider:
-                    delete question.options
-                    delete question.placeholder
-                    break
+                    delete question.options;
+                    delete question.placeholder;
+                    break;
                 case QuestionTypes.bool:
-                    delete question.options
+                    delete question.options;
+                    break;
                 // eslint-disable-next-line no-fallthrough
-                case QuestionTypes.check:
+                //case QuestionTypes.check:
                 case QuestionTypes.radio:
-                    delete question.startLabel
-                    delete question.endLabel
-                    delete question.min
-                    delete question.max
-                    delete question.step
-                    delete question.placeholder
-                    break
+                    delete question.startLabel;
+                    delete question.endLabel;
+                    delete question.min;
+                    delete question.max;
+                    delete question.step;
+                    delete question.placeholder;
+                    break;
                 case QuestionTypes.text:
-                    delete question.options
-                    delete question.startLabel
-                    delete question.endLabel
-                    delete question.min
-                    delete question.max
-                    delete question.step
-                    break
+                    delete question.options;
+                    delete question.startLabel;
+                    delete question.endLabel;
+                    delete question.min;
+                    delete question.max;
+                    delete question.step;
+                    break;
             }
-        })
-        this.api.createSurvey(this.survey).subscribe()
+        });
+        this.survey.dueDate = new Date(this.survey.dueDate).toISOString();
+        this.api.createSurvey(this.survey).subscribe();
     }
 }
