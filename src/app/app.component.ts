@@ -1,8 +1,9 @@
+import { DEFAULT_INTERRUPTSOURCES, Idle } from '@ng-idle/core';
+
+import { AlertController } from '@ionic/angular';
 /* eslint-disable @typescript-eslint/naming-convention */
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController } from '@ionic/angular';
-import { DEFAULT_INTERRUPTSOURCES, Idle } from '@ng-idle/core';
 
 @Component({
   selector: 'app-root',
@@ -46,8 +47,8 @@ export class AppComponent {
 
     });
 
-    idle.onTimeoutWarning.subscribe((countdown) => {
-      this.idleState =  `You will time out in ${countdown} seconds.`;
+    idle.onIdleStart.subscribe(() => {
+      this.idleState =  `You have been idle for a while now. Continued inactivity will result in your session ending.`;
       this.presentCountdownAlert();
     });
 
