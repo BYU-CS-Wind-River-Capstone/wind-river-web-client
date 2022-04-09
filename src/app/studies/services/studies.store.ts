@@ -35,7 +35,6 @@ export class StudiesStore {
     for (let i = 1; i <= numQuestions; ++i) {
         csvHeaders.push('questionMap.' + i);
     }
-    csvHeaders.push('title');
 
     const opts = {
       fields: csvHeaders,
@@ -45,7 +44,7 @@ export class StudiesStore {
 
     const csv = JSONToCSV(responses, opts);
 
-    await this.saveCsv(`survey-results-${responses[0].title}.csv`, csv);
+    await this.saveCsv(`survey-results-${responses[0].surveyId}.csv`, csv);
     console.log('completed file download');
   }
 
