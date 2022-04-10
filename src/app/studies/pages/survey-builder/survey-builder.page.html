@@ -13,20 +13,31 @@
                 <div id="question-bank">
                     <ion-card class="question-card survey-data-container">
                         <ion-card-header class="survey-data-fields">
-                            <ion-card-title *ngIf="!survey.isEditing"
+                            <ion-card-title *ngIf="!survey.isEditing && !(survey.title === '')"
                                 >{{survey.title}}</ion-card-title
                             >
+                            <ion-card-title *ngIf="!survey.isEditing && survey.title === ''">
+                                Title
+                            </ion-card-title>
                             <ion-input
                                 *ngIf="survey.isEditing"
                                 [(ngModel)]="survey.title"
+                                placeholder="Survey Title"
                             ></ion-input>
-                            <ion-card-subtitle *ngIf="!survey.isEditing"
+                            <ion-card-subtitle *ngIf="!survey.isEditing && survey.title === ''"
+                                >Description</ion-card-subtitle
+                            >
+                            <ion-card-subtitle *ngIf="!survey.isEditing && !(survey.title ==='')"
                                 >{{survey.description}}</ion-card-subtitle
                             >
                             <ion-textarea
                                 *ngIf="survey.isEditing"
                                 [(ngModel)]="survey.description"
+                                placeholder="Survey Description"
                             ></ion-textarea>
+                            <ion-card-subtitle *ngIf="survey.isEditing">
+                                Repeating Schedule:
+                            </ion-card-subtitle>
                             <ion-select
                                 *ngIf="survey.isEditing"
                                 [(ngModel)]="survey.repeatingSchedule"
@@ -35,9 +46,11 @@
                                 placeholder="Schedule"
                                 class="schedule-selector"
                             >
-                                <ion-select-option [value]="schedule.none">None</ion-select-option>
+                                <ion-select-option [value]="schedule.none"
+                                    >Does Not Repeat</ion-select-option
+                                >
                                 <ion-select-option [value]="schedule.always"
-                                    >Always</ion-select-option
+                                    >Always Available</ion-select-option
                                 >
                                 <ion-select-option [value]="schedule.daily"
                                     >Daily
@@ -52,9 +65,11 @@
                             <ion-card-subtitle *ngIf="!survey.isEditing"
                                 >{{getEnumTextValue(survey)}}</ion-card-subtitle
                             >
-                            <div *ngIf="survey.isEditing">
+                            <div
+                                *ngIf="survey.isEditing && !(survey.repeatingSchedule === schedule.always)"
+                            >
+                                <ion-card-subtitle> Due Date: </ion-card-subtitle>
                                 <ion-datetime
-                                    placeholder="{{survey.dueDate}}"
                                     [(ngModel)]="survey.dueDate"
                                     value="{{survey.dueDate | date:'longDate'}}"
                                     min="{{minimumDate}}"
@@ -62,7 +77,9 @@
                                 >
                                 </ion-datetime>
                             </div>
-                            <div *ngIf="!survey.isEditing">
+                            <div
+                                *ngIf="!survey.isEditing && !(survey.repeatingSchedule === schedule.always)"
+                            >
                                 <ion-card-subtitle
                                     >Due Date: {{survey.dueDate |
                                     date:'longDate'}}</ion-card-subtitle
@@ -206,9 +223,7 @@
                                 <ion-list *ngSwitchCase="questionTypes.radio">
                                     <ion-radio-group>
                                         <ion-item *ngFor="let option of question.options">
-                                          <ion-radio
-                                            slot="start"
-                                          ></ion-radio>
+                                            <ion-radio slot="start"></ion-radio>
                                             <ion-input
                                                 [(ngModel)]="option.label"
                                                 *ngIf="question.isEditing"

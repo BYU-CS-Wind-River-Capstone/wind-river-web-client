@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Question, QuestionTypes, Schedule, Survey } from '../../../types/survey.types';
 
+import { Router } from '@angular/router';
 import { StudiesApi } from '../../services/studies.api';
 import { add } from 'date-fns';
 
@@ -15,18 +16,21 @@ export class SurveyBuilderPage {
     minimumDate = new Date().toISOString();
     maximumDate = add(new Date(), { years: 2 }).toISOString();
     survey: Survey = {
-        title: 'Survey Title',
+        title: '',
         isEditing: false,
         repeatingSchedule: this.schedule.none,
-        description: 'Survey description',
-        dueDate: new Date().toDateString(),
+        description: '',
+        dueDate: new Date().toISOString(),
         questions: [],
     };
 
-    constructor(private api: StudiesApi) {}
+    constructor(private api: StudiesApi, private route: Router) {}
 
     editSurveyData(survey: Survey, isEditing: boolean) {
         survey.isEditing = isEditing;
+        console.log(survey.description);
+        console.log(survey.title);
+        console.log(survey.dueDate);
     }
 
     getEnumTextValue(survey: Survey) {
@@ -132,6 +136,10 @@ export class SurveyBuilderPage {
         }
     }
 
+    navigatePage(page: string) {
+        this.route.navigateByUrl(page);
+    }
+
     saveSurvey() {
         const formattedSurvey = { ...this.survey };
         formattedSurvey.questions.forEach((question: Question) => {
@@ -166,5 +174,6 @@ export class SurveyBuilderPage {
         });
         this.survey.dueDate = new Date(this.survey.dueDate).toISOString();
         this.api.createSurvey(this.survey).subscribe();
+        this.navigatePage('/studies/surveys');
     }
 }
