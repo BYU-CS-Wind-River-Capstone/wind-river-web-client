@@ -6,14 +6,14 @@ export enum QuestionTypes {
     /** select one  */
     radio = 'RADIO',
     /** mark all that apply  */
-    check = 'CHECK',
+    //check = 'CHECK',
     /** free response  */
     text = 'TEXT',
   }
 
   export class QuestionOption {
     label: string;
-    value: number | string; // TODO we need to decide on this
+    //value: number | string; // TODO we need to decide on this
   }
 
   export class Question {
@@ -46,7 +46,7 @@ export enum QuestionTypes {
     isEditing: boolean;
     description: string;
     repeatingSchedule: Schedule;
-    dueDate: String; // TODO figure out what we want to do about survey recurrence
+    dueDate: string; // TODO figure out what we want to do about survey recurrence
     questions: Question[];
   }
 
