@@ -4,13 +4,14 @@ import { Question, QuestionTypes, Schedule, Survey } from '../../../types/survey
 import { Router } from '@angular/router';
 import { StudiesApi } from '../../services/studies.api';
 import { add } from 'date-fns';
+import { StudiesStore } from '../../services/studies.store';
 
 @Component({
     selector: 'app-survey-builder',
     templateUrl: './survey-builder.page.html',
     styleUrls: ['./survey-builder.page.scss'],
 })
-export class SurveyBuilderPage {
+export class SurveyBuilderPage implements OnInit{
     questionTypes = QuestionTypes;
     schedule = Schedule;
     minimumDate = new Date().toISOString();
@@ -23,8 +24,17 @@ export class SurveyBuilderPage {
         dueDate: new Date().toISOString(),
         questions: [],
     };
+    isNewSurvey = true;
 
-    constructor(private api: StudiesApi, private route: Router) {}
+    constructor(private api: StudiesApi, private route: Router, public store: StudiesStore) {}
+
+
+    ngOnInit() {
+      if (this.store.activeSurvey) {
+        this.survey = this.store.activeSurvey;
+        this.isNewSurvey = false;
+      }
+    }
 
     editSurveyData(survey: Survey, isEditing: boolean) {
         survey.isEditing = isEditing;
@@ -173,7 +183,14 @@ export class SurveyBuilderPage {
             }
         });
         this.survey.dueDate = new Date(this.survey.dueDate).toISOString();
-        this.api.createSurvey(this.survey).subscribe();
+        if (this.isNewSurvey) {
+          this.survey.dueDate = this.maximumDate;
+          this.api.createSurvey(this.survey).subscribe();
+        } else {
+          console.log('Update survey API not ready');
+          //this.api.updateSurvey(this.survey).subscribe();
+          //TODO Add an update option to the API
+        }
         this.navigatePage('/studies/surveys');
     }
 }

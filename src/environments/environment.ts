@@ -6,7 +6,8 @@ export const environment = {
   production: false
 };
 
-// export const apiURL = 'http://localhost:3000/dev'; // Use this to hit the local server when served as serverless. remove the /dev if you use npm run start
+// export const apiURL = 'http://localhost:3000/dev';
+// Use this to hit the local server when served as serverless. remove the /dev if you use npm run start
 export const apiURL = 'https://qtuj4jjm63.execute-api.us-west-2.amazonaws.com/dev';
 
 /*

@@ -16,11 +16,15 @@
                 {{surveyInfo.title}}
                 <div class="action-buttons">
                     <!-- TODO hook up these buttons -->
-                    <!-- <ion-button><ion-icon name="pencil-outline"></ion-icon></ion-button> -->
-                    <ion-button (click)="store.downloadSurveyResponses(surveyInfo.id)"
-                        ><ion-icon name="download-outline"></ion-icon
-                    ></ion-button>
-                    <!-- <ion-button><ion-icon name="eye-outline"></ion-icon></ion-button> -->
+                    <ion-button (click)="editSurvey(surveyInfo)">
+                      <ion-icon  name="pencil-outline"></ion-icon>
+                    </ion-button>
+                    <ion-button (click)="downloadSurvey(surveyInfo)">
+                      <ion-icon name="download-outline"></ion-icon>
+                    </ion-button>
+                    <ion-button (click)="viewSurvey(surveyInfo)">
+                      <ion-icon name="eye-outline"></ion-icon>
+                    </ion-button>
                 </div>
             </ion-card-title>
             <ion-grid>

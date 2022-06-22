@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { SurveyStub, Survey, SurveyResponse } from '../../types/survey.types';
 import { StudiesApi } from './studies.api';
 import { parse as JSONToCSV} from 'json2csv';
+import { Router } from '@angular/router';
 
 @Injectable({providedIn: 'root'})
 export class StudiesStore {
@@ -17,8 +18,8 @@ export class StudiesStore {
 
   async saveCsv(filename: string, data: any) {
     const blob = new Blob([data], {type: 'text/csv'});
-    if(window.navigator.msSaveOrOpenBlob) {
-        window.navigator.msSaveBlob(blob, filename);
+    if((window.navigator as any).msSaveOrOpenBlob) {
+      (window.navigator as any).msSaveBlob(blob, filename);
     }
     else{
         const elem = window.document.createElement('a');
@@ -56,12 +57,27 @@ export class StudiesStore {
     });
   }
 
-  openSurvey(surveyId: string, viewOnly: boolean) {
+  openSurveyInEditMode(surveyId: string, router: Router) {
     this.loadingSurvey = true;
     this.api.getSurveyById(surveyId).subscribe((survey: Survey) => {
       this.activeSurvey = survey;
-      // TODO route to the survey builder page
+      this.activeSurvey.isEditing = true;
       this.loadingSurvey = false;
+      if (survey) {
+        router.navigateByUrl('/studies');
+      }
+    });
+  }
+
+  openSurveyInViewMode(surveyId: string, router: Router) {
+    this.loadingSurvey = true;
+    this.api.getSurveyById(surveyId).subscribe((survey: Survey) => {
+      this.activeSurvey = survey;
+      this.activeSurvey.isEditing = false;
+      this.loadingSurvey = false;
+      if (survey) {
+        router.navigateByUrl('/studies');
+      }
     });
   }
 
