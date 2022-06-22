@@ -15,6 +15,7 @@ export class LoginStore {
     // TODO figure out why only the idToken works to validate with the server, it feels like the access token should be doing that...
     localStorage.setItem('LIFE_HEALING_TOKEN', tokens.idToken.jwtToken);
     localStorage.setItem('LIFE_HEALING_USER_ID', tokens.idToken.payload.sub);
+    localStorage.setItem('LIFE_HEALING_GROUPS', tokens.idToken.payload['cognito:groups']);
     // TODO save the other useful user information (username, etc) to access throughout the app
   }
 
