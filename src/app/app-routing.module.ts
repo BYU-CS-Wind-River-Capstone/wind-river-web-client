@@ -24,6 +24,11 @@ const routes: Routes = [
     loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule),
   },
   {
+    path: 'user-groups',
+    loadChildren: () => import('./groups/groups.module').then( m => m.GroupsModule),
+    canActivateChild: [AuthGuard],
+  },
+  {
     path: '**',
     redirectTo: '',
     pathMatch: 'full',
