@@ -6,6 +6,8 @@ import { IonicModule } from '@ionic/angular';
 
 import { GroupsPageRoutingModule } from './groups-routing.module';
 import { GroupsPage } from './pages/groups/groups.page';
+import { GroupsApi } from './services/groups.api';
+import { GroupsStore } from './services/groups.store';
 
 
 @NgModule({
@@ -17,6 +19,6 @@ import { GroupsPage } from './pages/groups/groups.page';
     GroupsPageRoutingModule
   ],
   declarations: [GroupsPage],
-  providers: []
+  providers: [GroupsApi, GroupsStore]
 })
 export class GroupsModule {}

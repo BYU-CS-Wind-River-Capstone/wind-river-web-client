@@ -11,6 +11,12 @@ export class LoginStore {
     return this.api.login(credentials);
   }
 
+  logout() {
+    localStorage.removeItem('LIFE_HEALING_TOKEN');
+    localStorage.removeItem('LIFE_HEALING_USER_ID');
+    localStorage.removeItem('LIFE_HEALING_GROUPS');
+  }
+
   saveUser(tokens) {
     // TODO figure out why only the idToken works to validate with the server, it feels like the access token should be doing that...
     localStorage.setItem('LIFE_HEALING_TOKEN', tokens.idToken.jwtToken);

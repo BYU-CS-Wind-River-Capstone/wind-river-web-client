@@ -17,7 +17,13 @@ export class LoginPage implements OnInit {
   });
 
     constructor(private route: Router, private store: LoginStore, private toastController: ToastController) {}
-    ngOnInit(): void {}
+    ngOnInit(): void {
+      this.logout();
+    }
+
+    logout() {
+      this.store.logout();
+    }
 
     login() {
       this.store.login({name: this.form.value.username, password: this.form.value.password})

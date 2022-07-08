@@ -29,6 +29,10 @@ const routes: Routes = [
     canActivateChild: [AuthGuard],
   },
   {
+    path: 'logout',
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule),
+  },
+  {
     path: '**',
     redirectTo: '',
     pathMatch: 'full',
