@@ -55,11 +55,26 @@
                                 <ion-select-option [value]="schedule.daily"
                                     >Daily
                                 </ion-select-option>
+                                <ion-select-option [value]="schedule.twoDaily"
+                                    >Twice a Day
+                                </ion-select-option>
+                                <ion-select-option [value]="schedule.threeDaily"
+                                    >3 times a Day
+                                </ion-select-option>
                                 <ion-select-option [value]="schedule.weekly"
                                     >Weekly
                                 </ion-select-option>
+                                <ion-select-option [value]="schedule.twoWeekly"
+                                    >Twice a Week
+                                </ion-select-option>
+                                <ion-select-option [value]="schedule.threeWeekly"
+                                    >3 times a Week
+                                </ion-select-option>
                                 <ion-select-option [value]="schedule.monthly"
                                     >Monthly
+                                </ion-select-option>
+                                <ion-select-option [value]="schedule.twoMonthly"
+                                    >Twice a Month
                                 </ion-select-option>
                             </ion-select>
                             <ion-card-subtitle *ngIf="!survey.isEditing"
@@ -68,10 +83,10 @@
                             <div
                                 *ngIf="survey.isEditing && !(survey.repeatingSchedule === schedule.always)"
                             >
-                                <ion-card-subtitle> Due Date: </ion-card-subtitle>
+                                <ion-card-subtitle> End Date: </ion-card-subtitle>
                                 <ion-datetime
                                     [(ngModel)]="survey.dueDate"
-                                    value="{{survey.dueDate | date:'longDate'}}"
+                                    value="{{survey.dueDate}}"
                                     min="{{minimumDate}}"
                                     max="{{maximumDate}}"
                                 >
@@ -81,7 +96,7 @@
                                 *ngIf="!survey.isEditing && !(survey.repeatingSchedule === schedule.always)"
                             >
                                 <ion-card-subtitle
-                                    >Due Date: {{survey.dueDate |
+                                    >End Date: {{survey.dueDate |
                                     date:'longDate'}}</ion-card-subtitle
                                 >
                             </div>
@@ -316,6 +331,9 @@
             <ion-fab-button (click)="saveSurvey()" class="save-button">
                 <ion-icon class="save-icon" name="save"></ion-icon>
             </ion-fab-button>
+            <ion-fab-button color="danger" (click)="leaveBuilder()" class="back-button">
+              <ion-icon class="save-icon" name="arrow-undo-outline"></ion-icon>
+          </ion-fab-button>
         </ion-fab>
     </ion-content>
 </body>

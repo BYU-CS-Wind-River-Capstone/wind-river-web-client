@@ -55,7 +55,12 @@ export enum QuestionTypes {
       always = 'ALWAYS',
       daily = 'DAILY',
       weekly = 'WEEKLY',
-      monthly = 'MONTHLY'
+      monthly = 'MONTHLY',
+      twoMonthly = 'TWO_MONTHLY',
+      twoDaily = 'TWO_DAILY',
+      threeDaily = 'THREE_DAILY',
+      twoWeekly = 'TWO_WEEKLY',
+      threeWeekly = 'THREE_WEEKLY',
   }
 
   export class SurveyStub {

@@ -50,10 +50,20 @@ export class SurveyBuilderPage implements OnInit{
             return 'Always available';
         } else if (survey.repeatingSchedule === this.schedule.daily) {
             return 'Repeats daily';
-        } else if (survey.repeatingSchedule === this.schedule.weekly) {
+        } else if (survey.repeatingSchedule === this.schedule.twoDaily) {
+            return 'Repeats 2x a day';
+        } else if (survey.repeatingSchedule === this.schedule.threeDaily) {
+            return 'Repeats 3x a day';
+        }else if (survey.repeatingSchedule === this.schedule.weekly) {
             return 'Repeats weekly';
+        } else if (survey.repeatingSchedule === this.schedule.twoWeekly) {
+          return 'Repeats 2x a week';
+        } else if (survey.repeatingSchedule === this.schedule.threeWeekly) {
+          return 'Repeats 3x a week';
         } else if (survey.repeatingSchedule === this.schedule.monthly) {
             return 'Repeats monthly';
+        } else if (survey.repeatingSchedule === this.schedule.twoMonthly) {
+            return 'Repeats 2x a month';
         }
     }
 
@@ -150,6 +160,10 @@ export class SurveyBuilderPage implements OnInit{
         this.route.navigateByUrl(page);
     }
 
+    leaveBuilder() {
+      this.navigatePage('/studies/surveys');
+    }
+
     saveSurvey() {
         const formattedSurvey = { ...this.survey };
         formattedSurvey.questions.forEach((question: Question) => {
@@ -184,7 +198,6 @@ export class SurveyBuilderPage implements OnInit{
         });
         this.survey.dueDate = new Date(this.survey.dueDate).toISOString();
         if (this.isNewSurvey) {
-          this.survey.dueDate = this.maximumDate;
           this.api.createSurvey(this.survey).subscribe();
         } else {
           console.log('Update survey API not ready');
