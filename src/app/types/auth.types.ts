@@ -10,3 +10,13 @@ export class RegisterCredentials {
   password: string;
   email: string;
 }
+
+export class SubmitUsernameRequest {
+  username: string;
+}
+
+export class UpdatePasswordRequest {
+  username: string;
+  verificationCode: string;
+  newPassword: string;
+}

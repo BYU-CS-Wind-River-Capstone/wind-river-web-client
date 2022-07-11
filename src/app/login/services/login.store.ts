@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { LoginCredentials } from 'src/app/types/auth.types';
+import { Observable } from 'rxjs';
+import { LoginCredentials, UpdatePasswordRequest } from 'src/app/types/auth.types';
 import { LoginApi } from './login.api';
 
 @Injectable({providedIn: 'root'})
@@ -15,6 +16,17 @@ export class LoginStore {
     localStorage.removeItem('LIFE_HEALING_TOKEN');
     localStorage.removeItem('LIFE_HEALING_USER_ID');
     localStorage.removeItem('LIFE_HEALING_GROUPS');
+  }
+
+  resetPassword(userName: string): Observable<any> {
+    console.log(userName + ' requesting reset');
+    const response = this.api.resetPassword(userName);
+    console.log(response);
+    return response;
+  }
+
+  updatePassword(updatePasswordRequest: UpdatePasswordRequest) {
+    return this.api.updatePassword(updatePasswordRequest);
   }
 
   saveUser(tokens) {

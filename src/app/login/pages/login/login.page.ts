@@ -41,7 +41,6 @@ export class LoginPage implements OnInit {
 
     resetPassword() {
       this.navigatePage('/login/password');
-    //GO TO FORGOT PASSWORD PAGE
     }
 
     navigatePage(page: string) {

@@ -11,20 +11,58 @@ import { ToastController } from '@ionic/angular';
 })
 export class ForgotPasswordPage implements OnInit {
   form = new FormGroup({
-    username: new FormControl(''),
+    verificationCode: new FormControl(''),
+    newPassword: new FormControl(''),
   });
+  isUsernameValid: boolean;
+  storedUsername: string;
 
     constructor(private route: Router, private store: LoginStore, private toastController: ToastController) {}
     ngOnInit(): void {
       this.logout();
+      this.isUsernameValid = false;
     }
 
     logout() {
       this.store.logout();
     }
 
+    back() {
+      this.navigatePage('/login');
+    }
+
     sendResetCode() {
-        //TODO send reset code for real
+      const userName = (document.getElementById('usernameInput') as HTMLInputElement).value;
+      this.store.resetPassword(userName).subscribe(
+        res => {
+          this.isUsernameValid = true;
+          this.storedUsername = userName;
+        },
+        err => {
+          console.log(err);
+          this.isUsernameValid = false;
+          this.presentToast(err.error.message, 4000, 'danger');
+        }
+      );
+    }
+
+    updatePassword() {
+      this.store.updatePassword({username: this.storedUsername,
+        verificationCode: this.form.value.verificationCode,
+        newPassword: this.form.value.newPassword})
+      .subscribe(
+        (res) => {
+          this.isUsernameValid = false;
+          this.storedUsername = '';
+          (document.getElementById('usernameInput') as HTMLInputElement).value = '';
+          this.presentToast('Now you can login with your new password!', 2000, 'primary');
+          this.route.navigateByUrl('/login');
+        },
+        (err) => {
+          console.log(err.message);
+          this.presentToast('Invalid verification code or password.', 10000, 'danger');
+        }
+      );
     }
 
 
