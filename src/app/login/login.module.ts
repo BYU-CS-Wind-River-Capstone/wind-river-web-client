@@ -9,6 +9,7 @@ import { LoginPageRoutingModule } from './login-routing.module';
 import { LoginPage } from './pages/login/login.page';
 import { LoginApi } from './services/login.api';
 import { LoginStore } from './services/login.store';
+import { ForgotPasswordPage } from './pages/forgot-password/forgot-password.page';
 
 @NgModule({
   imports: [
@@ -18,7 +19,7 @@ import { LoginStore } from './services/login.store';
     IonicModule,
     LoginPageRoutingModule
   ],
-  declarations: [LoginPage],
+  declarations: [LoginPage, ForgotPasswordPage],
   providers: [LoginApi, LoginStore]
 })
 export class LoginPageModule {}

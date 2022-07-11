@@ -6,14 +6,12 @@ import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 
 @Component({
-    selector: 'app-login',
-    templateUrl: './login.page.html',
-    styleUrls: ['./login.page.scss'],
+    selector: 'app-forgot-password',
+    templateUrl: './forgot-password.page.html',
 })
-export class LoginPage implements OnInit {
+export class ForgotPasswordPage implements OnInit {
   form = new FormGroup({
     username: new FormControl(''),
-    password: new FormControl(''),
   });
 
     constructor(private route: Router, private store: LoginStore, private toastController: ToastController) {}
@@ -25,24 +23,10 @@ export class LoginPage implements OnInit {
       this.store.logout();
     }
 
-    login() {
-      this.store.login({name: this.form.value.username, password: this.form.value.password})
-      .subscribe(
-        (tokens) => {
-          this.store.saveUser(tokens);
-          this.presentToast('Welcome!', 2000, 'primary');
-          this.navigatePage('/studies/surveys');
-        },
-        (err) => {
-          this.presentToast(err.error.message, 10000, 'danger');
-        }
-      );
+    sendResetCode() {
+        //TODO send reset code for real
     }
 
-    resetPassword() {
-      this.navigatePage('/login/password');
-    //GO TO FORGOT PASSWORD PAGE
-    }
 
     navigatePage(page: string) {
         this.route.navigateByUrl(page);
